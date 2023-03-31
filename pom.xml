@@ -76,6 +76,11 @@
             <artifactId>weld-se-core</artifactId>
             <version>4.0.3.Final</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.32</version>
+        </dependency>
 
         <!--Junit-->
         <dependency>
@@ -89,6 +94,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.16</version>
         </dependency>
     </dependencies>
 
