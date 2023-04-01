@@ -45,7 +45,9 @@ public class BaseRepo <Entity, ID, Name>{
         return  true;
     }
     public boolean save(Entity entity){
+        entityManager.getTransaction().begin();
         entityManager.persist(entity);
+        entityManager.getTransaction().commit();
         return true;
     }
     public Entity getByName(Name name){
