@@ -10,6 +10,7 @@ import java.time.Instant;
 public class Inventory {
     @Id
     @Column(name = "inventory_id", nullable = false)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull

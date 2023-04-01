@@ -1,9 +1,6 @@
 package com.example.demo.repository.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -14,6 +11,7 @@ import java.time.Instant;
 public class Language {
     @Id
     @Column(name = "language_id", columnDefinition = "TINYINT UNSIGNED not null")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;
 
     @Size(max = 20)

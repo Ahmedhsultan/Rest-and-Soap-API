@@ -11,6 +11,7 @@ import java.time.Instant;
 public class Payment {
     @Id
     @Column(name = "payment_id", columnDefinition = "SMALLINT UNSIGNED not null")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull

@@ -12,6 +12,7 @@ import java.time.Instant;
 public class Film {
     @Id
     @Column(name = "film_id", columnDefinition = "SMALLINT UNSIGNED not null")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 128)

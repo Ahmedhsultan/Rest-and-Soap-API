@@ -10,6 +10,7 @@ import java.time.Instant;
 public class Rental {
     @Id
     @Column(name = "rental_id", nullable = false)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
