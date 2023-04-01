@@ -4,7 +4,7 @@
 
     <endpoint
             name="CalculatorWebService"
-            implementation="com.example.demo.controllers.ActorWS"
+            implementation="com.example.demo.webserviceies.soap.controllers.ActorWS"
             url-pattern="/sakila" />
 
 </endpoints>
