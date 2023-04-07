@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManager;
 
 public class LanguageRepo extends BaseRepo<Language, Integer, String>{
 
-    public LanguageRepo(EntityManager entityManager) {
-        super(entityManager, Language.class);
+    public LanguageRepo() {
+        super(Language.class);
     }
 }

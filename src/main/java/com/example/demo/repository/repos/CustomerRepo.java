@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class CustomerRepo extends BaseRepo<Customer, Integer, String>{
 
-    public CustomerRepo(EntityManager entityManager) {
-        super(entityManager, Customer.class);
+    public CustomerRepo() {
+        super(Customer.class);
     }
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class StaffRepo extends BaseRepo<Staff, Integer, String>{
 
-    public StaffRepo(EntityManager entityManager) {
-        super(entityManager, Staff.class);
+    public StaffRepo() {
+        super(Staff.class);
     }
 }

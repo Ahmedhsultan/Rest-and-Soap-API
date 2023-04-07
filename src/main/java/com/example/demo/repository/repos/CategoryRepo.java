@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class CategoryRepo extends BaseRepo<Category, Integer, String>{
 
-    public CategoryRepo(EntityManager entityManager) {
-        super(entityManager, Category.class);
+    public CategoryRepo() {
+        super(Category.class);
     }
 }

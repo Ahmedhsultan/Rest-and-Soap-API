@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class PaymentRepo extends BaseRepo<Payment, Integer, String>{
 
-    public PaymentRepo(EntityManager entityManager) {
-        super(entityManager, Payment.class);
+    public PaymentRepo() {
+        super(Payment.class);
     }
 }

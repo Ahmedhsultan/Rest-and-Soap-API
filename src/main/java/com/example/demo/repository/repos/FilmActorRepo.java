@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class FilmActorRepo extends BaseRepo<FilmActor, Integer, String>{
 
-    public FilmActorRepo(EntityManager entityManager) {
-        super(entityManager, FilmActor.class);
+    public FilmActorRepo() {
+        super(FilmActor.class);
     }
 }

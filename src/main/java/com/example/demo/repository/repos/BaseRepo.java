@@ -1,6 +1,6 @@
 package com.example.demo.repository.repos;
 
-import jakarta.persistence.EntityManager;
+import com.example.demo.repository.manager.Manager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -8,51 +8,80 @@ import jakarta.persistence.criteria.Root;
 import java.util.List;
 
 public class BaseRepo <Entity, ID, Name>{
-
-    protected EntityManager entityManager;
-    protected CriteriaQuery<Entity> criteriaQuery;
-    protected CriteriaDelete<Entity> criteriaDelete;
-    protected CriteriaBuilder criteriaBuilder;
-    protected Root<Entity> root;
     protected Class<Entity> entityClass;
-    public BaseRepo(EntityManager entityManager, Class<Entity> entityClass){
-        this.entityManager = entityManager;
-        this.criteriaBuilder = entityManager.getCriteriaBuilder();
-        this.criteriaQuery = criteriaBuilder.createQuery(entityClass);
-        this.root = criteriaQuery.from(entityClass);
-        this.entityClass = entityClass;
-        this.criteriaDelete = criteriaBuilder.createCriteriaDelete(entityClass);
-    }
+    public BaseRepo(Class<Entity> entityClass){this.entityClass = entityClass;}
 
     public Entity getById(ID id){
-        criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id)).select(root);
-        Entity entity = entityManager.createQuery(criteriaQuery).getSingleResult();
+        Entity entity = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<Entity> root = criteriaQuery.from(entityClass);
+
+            //Queries
+            criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id)).select(root);
+            Entity result = entityManager.createQuery(criteriaQuery).getSingleResult();
+
+            return result;
+        });
 
         return  entity;
     }
     public List<Entity> getAll(){
-        criteriaQuery.select(root);
-        List<Entity> entitys = entityManager.createQuery(criteriaQuery).getResultList();
+        List<Entity> entitys = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<Entity> root = criteriaQuery.from(entityClass);
+
+            //Queries
+            criteriaQuery.select(root);
+            List<Entity> result = entityManager.createQuery(criteriaQuery).getResultList();
+
+            return result;
+        });
 
         return  entitys;
     }
     public boolean deleteById(ID id){
-        criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
-        //entityManager.getTransaction().begin();
-        entityManager.createQuery(criteriaDelete).executeUpdate();
-        //entityManager.getTransaction().commit();
+        Boolean status = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaDelete<Entity> criteriaDelete = criteriaBuilder.createCriteriaDelete(entityClass);
+            Root<Entity> root = criteriaDelete.from(entityClass);
 
-        return  true;
+            //Queries
+            criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
+            entityManager.createQuery(criteriaDelete).executeUpdate();
+
+            return true;
+        });
+
+        return  status;
     }
     public boolean save(Entity entity){
-        entityManager.getTransaction().begin();
-        entityManager.persist(entity);
-        entityManager.getTransaction().commit();
-        return true;
+        Boolean status = Manager.doTransaction((entityManager)->{
+            //Queries
+            entityManager.persist(entity);
+
+            return true;
+        });
+
+        return  status;
     }
     public Entity getByName(Name name){
-        criteriaQuery.where(criteriaBuilder.equal(root.get(name.toString()), name)).select(root);
-        Entity entity = entityManager.createQuery(criteriaQuery).getSingleResult();
+        Entity entity = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<Entity> root = criteriaQuery.from(entityClass);
+
+            //Queries
+            criteriaQuery.where(criteriaBuilder.equal(root.get(name.toString()), name)).select(root);
+            Entity result = entityManager.createQuery(criteriaQuery).getSingleResult();
+
+            return result;
+        });
 
         return  entity;
     }

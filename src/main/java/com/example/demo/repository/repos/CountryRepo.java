@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class CountryRepo extends BaseRepo<Country, Integer, String>{
 
-    public CountryRepo(EntityManager entityManager) {
-        super(entityManager, Country.class);
+    public CountryRepo() {
+        super(Country.class);
     }
 }

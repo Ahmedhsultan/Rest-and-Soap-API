@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class CityRepo extends BaseRepo<City, Integer, String>{
 
-    public CityRepo(EntityManager entityManager) {
-        super(entityManager, City.class);
+    public CityRepo() {
+        super(City.class);
     }
 }

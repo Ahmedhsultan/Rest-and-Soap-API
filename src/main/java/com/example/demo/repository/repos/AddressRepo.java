@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 
 public class AddressRepo extends BaseRepo<Address, Integer, String>{
 
-    public AddressRepo(EntityManager entityManager) {
-        super(entityManager, Address.class);
+    public AddressRepo() {
+        super(Address.class);
     }
 }
