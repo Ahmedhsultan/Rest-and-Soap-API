@@ -35,9 +35,4 @@ public class ActorService extends BaseService<Actor, ActorRepo>{
 
         return actor;
     }
-
-    public Actor Get (String coulomnName, String name){
-        Actor actor = actorRepo.getByName(coulomnName,name);
-        return actor;
-    }
 }

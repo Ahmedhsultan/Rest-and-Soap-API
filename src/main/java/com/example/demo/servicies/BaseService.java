@@ -8,12 +8,12 @@ public class BaseService <Entity, Repo extends BaseRepo<Entity,Integer,String>>{
         this.repo = repo;
     }
 
-    public Entity Get (String coulmnName, String name){
-        Entity entity = repo.getByName(coulmnName, name);
+    public Entity get (String columnName, String value){
+        Entity entity = repo.getByName(columnName, value);
         return entity;
     }
-    public Boolean Delete (String coulmnName, String name){
-        Boolean status = repo.deleteByName(coulmnName, name);
+    public Boolean delete (String columnName, String value){
+        Boolean status = repo.deleteByName(columnName, value);
         return status;
     }
 }

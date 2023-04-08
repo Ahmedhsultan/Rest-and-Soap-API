@@ -59,7 +59,7 @@ public class BaseRepo <Entity, ID, Name>{
 
         return  status;
     }
-    public boolean deleteByName(String coulmnName, String name){
+    public boolean deleteByName(String columnName, String value){
         Boolean status = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -67,7 +67,7 @@ public class BaseRepo <Entity, ID, Name>{
             Root<Entity> root = criteriaDelete.from(entityClass);
 
             //Queries
-            criteriaDelete.where(criteriaBuilder.equal(root.get(coulmnName), name));
+            criteriaDelete.where(criteriaBuilder.equal(root.get(columnName), value));
             entityManager.createQuery(criteriaDelete).executeUpdate();
 
             return true;
@@ -89,7 +89,7 @@ public class BaseRepo <Entity, ID, Name>{
         });
         return  status;
     }
-    public Entity getByName(String coulmnName, String name){
+    public Entity getByName(String columnName, String value){
         Entity entity = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -97,7 +97,7 @@ public class BaseRepo <Entity, ID, Name>{
             Root<Entity> root = criteriaQuery.from(entityClass);
 
             //Queries
-            criteriaQuery.where(criteriaBuilder.equal(root.get(coulmnName), name)).select(root);
+            criteriaQuery.where(criteriaBuilder.equal(root.get(columnName), value)).select(root);
             Entity result = entityManager.createQuery(criteriaQuery).getSingleResult();
 
             return result;
