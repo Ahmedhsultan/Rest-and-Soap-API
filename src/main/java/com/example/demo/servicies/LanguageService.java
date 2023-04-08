@@ -16,11 +16,11 @@ public class LanguageService {
     }
 
     public Language create(LanguageDTO languageDTO) throws PersistenceException {
-
+        //Create Language
         Language language = modelMapper.map(languageDTO, Language.class);
         language.setLastUpdate(Instant.now());
 
-        //Save this actor
+        //Save this language
         try {
             languageRepo.save(language);
         }catch (PersistenceException persistenceException){
