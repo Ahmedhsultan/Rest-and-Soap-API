@@ -24,6 +24,8 @@ public class ActorController {
         ActorService actorService = new ActorService();
         Actor actor = actorService.get(columnName, value);
 
+        if (actor == null)
+            return Response.status(Response.Status.NOT_FOUND).entity("Object not found").build();
         return Response.ok(actor).build();
     }
     @DELETE
@@ -35,7 +37,6 @@ public class ActorController {
 
         if (status)
             return Response.ok().build();
-        else
-            return Response.status(Response.Status.EXPECTATION_FAILED).build();
+        return Response.status(Response.Status.EXPECTATION_FAILED).build();
     }
 }

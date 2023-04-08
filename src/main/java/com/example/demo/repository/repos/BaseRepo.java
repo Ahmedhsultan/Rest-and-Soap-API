@@ -68,9 +68,12 @@ public class BaseRepo <Entity, ID, Name>{
 
             //Queries
             criteriaDelete.where(criteriaBuilder.equal(root.get(columnName), value));
-            entityManager.createQuery(criteriaDelete).executeUpdate();
+            int row = entityManager.createQuery(criteriaDelete).executeUpdate();
 
-            return true;
+            if (row>0)
+                return true;
+            else
+                return false;
         });
 
         return  status;
