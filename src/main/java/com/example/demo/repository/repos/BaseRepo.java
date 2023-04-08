@@ -61,15 +61,19 @@ public class BaseRepo <Entity, ID, Name>{
     }
     public boolean save(Entity entity){
         Boolean status = Manager.doTransaction((entityManager)->{
-            //Queries
             entityManager.persist(entity);
-
             return true;
         });
-
         return  status;
     }
-    public Entity getByName(Name name){
+    public boolean update(Entity entity){
+        Boolean status = Manager.doTransaction((entityManager)->{
+            entityManager.merge(entity);
+            return true;
+        });
+        return  status;
+    }
+    public Entity getByName(String coulmnName, String name){
         Entity entity = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -77,7 +81,7 @@ public class BaseRepo <Entity, ID, Name>{
             Root<Entity> root = criteriaQuery.from(entityClass);
 
             //Queries
-            criteriaQuery.where(criteriaBuilder.equal(root.get(name.toString()), name)).select(root);
+            criteriaQuery.where(criteriaBuilder.equal(root.get(coulmnName), name)).select(root);
             Entity result = entityManager.createQuery(criteriaQuery).getSingleResult();
 
             return result;
