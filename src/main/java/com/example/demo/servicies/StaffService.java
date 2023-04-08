@@ -1,6 +1,5 @@
 package com.example.demo.servicies;
 
-import com.example.demo.repository.entities.Actor;
 import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.Staff;
 import com.example.demo.repository.entities.Store;

@@ -2,7 +2,6 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
-import com.example.demo.webserviceies.rest.DTOs.PaymentDTO;
 import com.example.demo.webserviceies.rest.DTOs.RentalDTO;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;

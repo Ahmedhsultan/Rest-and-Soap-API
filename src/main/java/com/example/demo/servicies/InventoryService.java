@@ -9,7 +9,6 @@ import com.example.demo.repository.repos.StoreRepo;
 import com.example.demo.webserviceies.rest.DTOs.InventoryDTO;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
-
 import java.time.Instant;
 
 public class InventoryService extends BaseService<Inventory, InventoryRepo>{

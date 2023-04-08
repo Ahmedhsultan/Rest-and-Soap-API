@@ -1,18 +1,14 @@
 package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.Address;
-import com.example.demo.repository.entities.Country;
 import com.example.demo.repository.entities.Customer;
 import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.AddressRepo;
-import com.example.demo.repository.repos.CountryRepo;
 import com.example.demo.repository.repos.CustomerRepo;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.webserviceies.rest.DTOs.CountryDTO;
 import com.example.demo.webserviceies.rest.DTOs.CustomerDTO;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
-
 import java.time.Instant;
 
 public class CustomerService extends BaseService<Customer, CustomerRepo>{
