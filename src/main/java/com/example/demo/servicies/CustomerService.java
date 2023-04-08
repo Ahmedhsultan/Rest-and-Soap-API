@@ -15,12 +15,13 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class CustomerService {
+public class CustomerService extends BaseService<Customer, CustomerRepo>{
     private CustomerRepo customerRepo;
     private StoreRepo storeRepo;
     private AddressRepo addressRepo;
     private ModelMapper modelMapper;
     public CustomerService(){
+        super(new CustomerRepo());
         this.storeRepo = new StoreRepo();
         this.addressRepo = new AddressRepo();
         this.customerRepo = new CustomerRepo();

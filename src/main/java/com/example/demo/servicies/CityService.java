@@ -9,11 +9,12 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CityService {
+public class CityService extends BaseService<City, CityRepo>{
     private CityRepo cityRepo;
     private CountryRepo countryRepo;
     private ModelMapper modelMapper;
     public CityService(){
+        super(new CityRepo());
         this.countryRepo = new CountryRepo();
         this.cityRepo = new CityRepo();
         this.modelMapper = new ModelMapper();

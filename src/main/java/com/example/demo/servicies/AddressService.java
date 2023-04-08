@@ -11,12 +11,13 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class AddressService {
+public class AddressService extends BaseService<Address, AddressRepo>{
 
     private AddressRepo addressRepo;
     private CityRepo cityRepo;
     private ModelMapper modelMapper;
     public AddressService(){
+        super(new AddressRepo());
         this.cityRepo = new CityRepo();
         this.addressRepo = new AddressRepo();
         this.modelMapper = new ModelMapper();

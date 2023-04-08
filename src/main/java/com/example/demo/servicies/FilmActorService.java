@@ -4,20 +4,19 @@ import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.ActorRepo;
 import com.example.demo.repository.repos.FilmActorRepo;
 import com.example.demo.repository.repos.FilmRepo;
-import com.example.demo.repository.repos.LanguageRepo;
 import com.example.demo.webserviceies.rest.DTOs.FilmActorDTO;
-import com.example.demo.webserviceies.rest.DTOs.FilmDTO;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class FilmActorService {
+public class FilmActorService extends BaseService<FilmActor, FilmActorRepo>{
     private ActorRepo actorRepo;
     private FilmRepo filmRepo;
     private FilmActorRepo filmActorRepo;
     private ModelMapper modelMapper;
     public FilmActorService(){
+        super(new FilmActorRepo());
         this.filmActorRepo = new FilmActorRepo();
         this.filmRepo = new FilmRepo();
         this.actorRepo = new ActorRepo();

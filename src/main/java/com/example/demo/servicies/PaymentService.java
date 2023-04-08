@@ -8,13 +8,14 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class PaymentService {
+public class PaymentService extends BaseService<Payment, PaymentRepo>{
     private CustomerRepo customerRepo;
     private StaffRepo staffRepo;
     private RentalRepo rentalRepo;
     private PaymentRepo paymentRepo;
     private ModelMapper modelMapper;
     public PaymentService(){
+        super(new PaymentRepo());
         this.customerRepo = new CustomerRepo();
         this.staffRepo = new StaffRepo();
         this.rentalRepo = new RentalRepo();

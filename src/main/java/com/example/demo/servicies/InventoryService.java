@@ -12,12 +12,13 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class InventoryService {
+public class InventoryService extends BaseService<Inventory, InventoryRepo>{
     private StoreRepo storeRepo;
     private FilmRepo filmRepo;
     private InventoryRepo inventoryRepo;
     private ModelMapper modelMapper;
     public InventoryService(){
+        super(new InventoryRepo());
         this.filmRepo = new FilmRepo();
         this.storeRepo = new StoreRepo();
         this.inventoryRepo = new InventoryRepo();

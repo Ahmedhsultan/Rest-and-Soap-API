@@ -7,10 +7,11 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CountryService {
+public class CountryService extends BaseService<Country, CountryRepo>{
     private CountryRepo countryRepo;
     private ModelMapper modelMapper;
     public CountryService(){
+        super(new CountryRepo());
         this.countryRepo = new CountryRepo();
         this.modelMapper = new ModelMapper();
     }

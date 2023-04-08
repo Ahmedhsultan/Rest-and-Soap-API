@@ -13,10 +13,11 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class CategoryService {
+public class CategoryService extends BaseService<Category, CategoryRepo>{
     private CategoryRepo categoryRepo;
     private ModelMapper modelMapper;
     public CategoryService(){
+        super(new CategoryRepo());
         this.categoryRepo = new CategoryRepo();
         this.modelMapper = new ModelMapper();
     }

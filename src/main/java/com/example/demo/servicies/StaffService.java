@@ -4,24 +4,23 @@ import com.example.demo.repository.entities.Actor;
 import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.Staff;
 import com.example.demo.repository.entities.Store;
-import com.example.demo.repository.repos.ActorRepo;
 import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.StaffRepo;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.webserviceies.rest.DTOs.ActorDTO;
 import com.example.demo.webserviceies.rest.DTOs.StaffDTO;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class StaffService {
+public class StaffService extends BaseService<Staff, StaffRepo>{
     private StaffRepo staffRepo;
     private AddressRepo addressRepo;
     private StoreRepo storeRepo;
     private ModelMapper modelMapper;
 
     public StaffService(){
+        super(new StaffRepo());
         //Create objects from repositories
         this.modelMapper = new ModelMapper();
         this.staffRepo = new StaffRepo();

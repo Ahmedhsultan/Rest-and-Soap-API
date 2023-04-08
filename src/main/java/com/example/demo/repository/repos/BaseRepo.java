@@ -59,6 +59,22 @@ public class BaseRepo <Entity, ID, Name>{
 
         return  status;
     }
+    public boolean deleteByName(String coulmnName, String name){
+        Boolean status = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaDelete<Entity> criteriaDelete = criteriaBuilder.createCriteriaDelete(entityClass);
+            Root<Entity> root = criteriaDelete.from(entityClass);
+
+            //Queries
+            criteriaDelete.where(criteriaBuilder.equal(root.get(coulmnName), name));
+            entityManager.createQuery(criteriaDelete).executeUpdate();
+
+            return true;
+        });
+
+        return  status;
+    }
     public boolean save(Entity entity){
         Boolean status = Manager.doTransaction((entityManager)->{
             entityManager.persist(entity);

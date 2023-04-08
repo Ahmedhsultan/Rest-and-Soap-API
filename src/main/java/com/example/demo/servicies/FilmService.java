@@ -10,11 +10,12 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class FilmService {
+public class FilmService extends BaseService<Film, FilmRepo>{
     private LanguageRepo languageRepo;
     private FilmRepo filmRepo;
     private ModelMapper modelMapper;
     public FilmService(){
+        super(new FilmRepo());
         this.filmRepo = new FilmRepo();
         this.languageRepo = new LanguageRepo();
         this.modelMapper = new ModelMapper();

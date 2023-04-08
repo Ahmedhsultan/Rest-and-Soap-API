@@ -7,10 +7,11 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class LanguageService {
+public class LanguageService extends BaseService<Language, LanguageRepo>{
     private LanguageRepo languageRepo;
     private ModelMapper modelMapper;
     public LanguageService(){
+        super(new LanguageRepo());
         this.languageRepo = new LanguageRepo();
         this.modelMapper = new ModelMapper();
     }

@@ -8,12 +8,13 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class FilmCategoryService {
+public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryRepo>{
     private CategoryRepo categoryRepo;
     private FilmRepo filmRepo;
     private FilmCategoryRepo filmCategoryRepo;
     private ModelMapper modelMapper;
     public FilmCategoryService(){
+        super(new FilmCategoryRepo());
         this.filmCategoryRepo = new FilmCategoryRepo();
         this.filmRepo = new FilmRepo();
         this.categoryRepo = new CategoryRepo();

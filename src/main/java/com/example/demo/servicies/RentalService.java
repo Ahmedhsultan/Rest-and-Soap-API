@@ -9,13 +9,14 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class RentalService {
+public class RentalService extends BaseService<Rental, RentalRepo>{
     private CustomerRepo customerRepo;
     private StaffRepo staffRepo;
     private RentalRepo rentalRepo;
     private InventoryRepo inventoryRepo;
     private ModelMapper modelMapper;
     public RentalService(){
+        super(new RentalRepo());
         this.customerRepo = new CustomerRepo();
         this.staffRepo = new StaffRepo();
         this.rentalRepo = new RentalRepo();
