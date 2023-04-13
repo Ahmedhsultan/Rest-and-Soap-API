@@ -125,12 +125,12 @@
             <version>4.4.16</version>
         </dependency>
 
-<!--        &lt;!&ndash;servlet listner&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>jakarta.platform</groupId>-->
-<!--            <artifactId>jakarta.jakartaee-api</artifactId>-->
-<!--            <version>9.1.0</version>-->
-<!--        </dependency>-->
+        <!--servlet listener-->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>10.0.0</version>
+        </dependency>
         <!--Mapper-->
         <dependency>
             <groupId>org.modelmapper</groupId>
