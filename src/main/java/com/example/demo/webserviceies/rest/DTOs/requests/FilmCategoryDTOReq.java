@@ -1,9 +1,9 @@
-package com.example.demo.webserviceies.rest.DTOs;
+package com.example.demo.webserviceies.rest.DTOs.requests;
 
 import lombok.Data;
 
 @Data
-public class FilmCategoryDTO {
+public class FilmCategoryDTOReq {
     private String filmTitle;
     private String categoryName;
 }

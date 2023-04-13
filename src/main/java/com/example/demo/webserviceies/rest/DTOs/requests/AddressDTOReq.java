@@ -1,10 +1,10 @@
-package com.example.demo.webserviceies.rest.DTOs;
+package com.example.demo.webserviceies.rest.DTOs.requests;
 
 
 import lombok.Data;
 
 @Data
-public class AddressDTO {
+public class AddressDTOReq {
     private String address;
     private String address2;
     private String district;
