@@ -6,20 +6,21 @@ import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.StaffRepo;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.webserviceies.rest.DTOs.StaffDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.StaffDTOReq;
+import com.example.demo.webserviceies.rest.DTOs.resources.StaffDTOResp;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class StaffService extends BaseService<Staff, StaffRepo>{
+public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo>{
     private StaffRepo staffRepo;
     private AddressRepo addressRepo;
     private StoreRepo storeRepo;
     private ModelMapper modelMapper;
 
     public StaffService(){
-        super(new StaffRepo());
+        super(new StaffRepo(), StaffDTOResp.class);
         //Create objects from repositories
         this.modelMapper = new ModelMapper();
         this.staffRepo = new StaffRepo();
@@ -27,13 +28,13 @@ public class StaffService extends BaseService<Staff, StaffRepo>{
         this.addressRepo = new AddressRepo();
     }
 
-    public Staff create(StaffDTO staffDTO) throws PersistenceException {
+    public Staff create(StaffDTOReq staffDTOReq) throws PersistenceException {
         //Fetch Address and store from db
-        Address address = addressRepo.getByName("address", staffDTO.getAddress());
-        Store store = storeRepo.getById(staffDTO.getStoreId());
+        Address address = addressRepo.getByName("address", staffDTOReq.getAddress());
+        Store store = storeRepo.getById(staffDTOReq.getStoreId());
 
         //Create object of staff
-        Staff staff = modelMapper.map(staffDTO, Staff.class);
+        Staff staff = modelMapper.map(staffDTOReq, Staff.class);
         staff.setStore(store);
         staff.setAddress(address);
         staff.setLastUpdate(Instant.now());

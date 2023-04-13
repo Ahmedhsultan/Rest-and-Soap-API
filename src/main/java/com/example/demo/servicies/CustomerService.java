@@ -6,31 +6,32 @@ import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.CustomerRepo;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.webserviceies.rest.DTOs.CustomerDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.CustomerDTOReq;
+import com.example.demo.webserviceies.rest.DTOs.resources.CustomerDTOResp;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CustomerService extends BaseService<Customer, CustomerRepo>{
+public class CustomerService extends BaseService<Customer, CustomerDTOResp, CustomerRepo>{
     private CustomerRepo customerRepo;
     private StoreRepo storeRepo;
     private AddressRepo addressRepo;
     private ModelMapper modelMapper;
     public CustomerService(){
-        super(new CustomerRepo());
+        super(new CustomerRepo(), CustomerDTOResp.class);
         this.storeRepo = new StoreRepo();
         this.addressRepo = new AddressRepo();
         this.customerRepo = new CustomerRepo();
         this.modelMapper = new ModelMapper();
     }
 
-    public Customer create(CustomerDTO customerDTO) throws PersistenceException {
+    public Customer create(CustomerDTOReq customerDTOReq) throws PersistenceException {
         //Fetch store and address from database
-        Store store = storeRepo.getById(customerDTO.getStore_ID());
-        Address address = addressRepo.getByName("address", customerDTO.getAddress());
+        Store store = storeRepo.getById(customerDTOReq.getStore_ID());
+        Address address = addressRepo.getByName("address", customerDTOReq.getAddress());
 
         //Create new customer
-        Customer customer = modelMapper.map(customerDTO, Customer.class);
+        Customer customer = modelMapper.map(customerDTOReq, Customer.class);
         customer.setActive(true);
         customer.setStore(store);
         customer.setAddress(address);

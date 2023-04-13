@@ -4,28 +4,29 @@ import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.ActorRepo;
 import com.example.demo.repository.repos.FilmActorRepo;
 import com.example.demo.repository.repos.FilmRepo;
-import com.example.demo.webserviceies.rest.DTOs.FilmActorDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.FilmActorDTOReq;
+import com.example.demo.webserviceies.rest.DTOs.resources.FilmActorDTOResp;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class FilmActorService extends BaseService<FilmActor, FilmActorRepo>{
+public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, FilmActorRepo>{
     private ActorRepo actorRepo;
     private FilmRepo filmRepo;
     private FilmActorRepo filmActorRepo;
     private ModelMapper modelMapper;
     public FilmActorService(){
-        super(new FilmActorRepo());
+        super(new FilmActorRepo(), FilmActorDTOResp.class);
         this.filmActorRepo = new FilmActorRepo();
         this.filmRepo = new FilmRepo();
         this.actorRepo = new ActorRepo();
         this.modelMapper = new ModelMapper();
     }
 
-    public FilmActor create(FilmActorDTO filmActorDTO) throws PersistenceException {
+    public FilmActor create(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = filmRepo.getByName("title", filmActorDTO.getTitle());
-        Actor actor = actorRepo.getByName("firstName", filmActorDTO.getFirstName());
+        Film film = filmRepo.getByName("title", filmActorDTOReq.getTitle());
+        Actor actor = actorRepo.getByName("firstName", filmActorDTOReq.getFirstName());
 
         FilmActorId filmActorId = new FilmActorId();
         filmActorId.setActorId(actor.getId());

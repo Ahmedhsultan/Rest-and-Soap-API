@@ -6,28 +6,29 @@ import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.FilmRepo;
 import com.example.demo.repository.repos.InventoryRepo;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.webserviceies.rest.DTOs.InventoryDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.InventoryDTOReq;
+import com.example.demo.webserviceies.rest.DTOs.resources.InventoryDTOResp;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class InventoryService extends BaseService<Inventory, InventoryRepo>{
+public class InventoryService extends BaseService<Inventory, InventoryDTOResp, InventoryRepo>{
     private StoreRepo storeRepo;
     private FilmRepo filmRepo;
     private InventoryRepo inventoryRepo;
     private ModelMapper modelMapper;
     public InventoryService(){
-        super(new InventoryRepo());
+        super(new InventoryRepo(), InventoryDTOResp.class);
         this.filmRepo = new FilmRepo();
         this.storeRepo = new StoreRepo();
         this.inventoryRepo = new InventoryRepo();
         this.modelMapper = new ModelMapper();
     }
 
-    public Inventory create(InventoryDTO inventoryDTO) throws PersistenceException {
+    public Inventory create(InventoryDTOReq inventoryDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Film file = filmRepo.getByName("title", inventoryDTO.getFilmTitle());
-        Store store = storeRepo.getById(inventoryDTO.getStoreId());
+        Film file = filmRepo.getByName("title", inventoryDTOReq.getFilmTitle());
+        Store store = storeRepo.getById(inventoryDTOReq.getStoreId());
 
         //Create Inventory
         Inventory inventory = new Inventory();

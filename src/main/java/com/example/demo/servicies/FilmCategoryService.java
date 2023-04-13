@@ -2,28 +2,29 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
-import com.example.demo.webserviceies.rest.DTOs.FilmCategoryDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.FilmCategoryDTOReq;
+import com.example.demo.webserviceies.rest.DTOs.resources.FilmCategoryDTOResp;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryRepo>{
+public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryDTOResp, FilmCategoryRepo>{
     private CategoryRepo categoryRepo;
     private FilmRepo filmRepo;
     private FilmCategoryRepo filmCategoryRepo;
     private ModelMapper modelMapper;
     public FilmCategoryService(){
-        super(new FilmCategoryRepo());
+        super(new FilmCategoryRepo(), FilmCategoryDTOResp.class);
         this.filmCategoryRepo = new FilmCategoryRepo();
         this.filmRepo = new FilmRepo();
         this.categoryRepo = new CategoryRepo();
         this.modelMapper = new ModelMapper();
     }
 
-    public FilmCategory create(FilmCategoryDTO filmCategoryDTO) throws PersistenceException {
+    public FilmCategory create(FilmCategoryDTOReq filmCategoryDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = filmRepo.getByName("title", filmCategoryDTO.getFilmTitle());
-        Category category = categoryRepo.getByName("name", filmCategoryDTO.getCategoryName());
+        Film film = filmRepo.getByName("title", filmCategoryDTOReq.getFilmTitle());
+        Category category = categoryRepo.getByName("name", filmCategoryDTOReq.getCategoryName());
 
         //Create filmCategory
         FilmCategoryId filmCategoryId = new FilmCategoryId();

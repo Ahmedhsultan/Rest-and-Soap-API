@@ -4,29 +4,30 @@ import com.example.demo.repository.entities.City;
 import com.example.demo.repository.entities.Country;
 import com.example.demo.repository.repos.CityRepo;
 import com.example.demo.repository.repos.CountryRepo;
-import com.example.demo.webserviceies.rest.DTOs.CityDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.CityDTOReq;
+import com.example.demo.webserviceies.rest.DTOs.resources.CityDTOResp;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CityService extends BaseService<City, CityRepo>{
+public class CityService extends BaseService<City, CityDTOResp, CityRepo>{
     private CityRepo cityRepo;
     private CountryRepo countryRepo;
     private ModelMapper modelMapper;
     public CityService(){
-        super(new CityRepo());
+        super(new CityRepo(), CityDTOResp.class);
         this.countryRepo = new CountryRepo();
         this.cityRepo = new CityRepo();
         this.modelMapper = new ModelMapper();
     }
 
-    public City createCity(CityDTO cityDTO) throws PersistenceException {
+    public City createCity(CityDTOReq cityDTOReq) throws PersistenceException {
 
-        Country country = countryRepo.getByName("country", cityDTO.getCountry());
+        Country country = countryRepo.getByName("country", cityDTOReq.getCountry());
 
         City city = new City();
         city.setCountry(country);
-        city.setCity(cityDTO.getCity());
+        city.setCity(cityDTOReq.getCity());
         city.setLastUpdate(Instant.now());
 
         //Save this city

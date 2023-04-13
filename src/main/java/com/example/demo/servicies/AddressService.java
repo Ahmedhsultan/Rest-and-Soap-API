@@ -2,33 +2,33 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.City;
-import com.example.demo.repository.entities.Country;
 import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.CityRepo;
-import com.example.demo.webserviceies.rest.DTOs.AddressDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.AddressDTOReq;
+import com.example.demo.webserviceies.rest.DTOs.resources.AddressDTOResp;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class AddressService extends BaseService<Address, AddressRepo>{
+public class AddressService extends BaseService<Address, AddressDTOResp, AddressRepo>{
 
     private AddressRepo addressRepo;
     private CityRepo cityRepo;
     private ModelMapper modelMapper;
     public AddressService(){
-        super(new AddressRepo());
+        super(new AddressRepo(), AddressDTOResp.class);
         this.cityRepo = new CityRepo();
         this.addressRepo = new AddressRepo();
         this.modelMapper = new ModelMapper();
     }
 
-    public Address createAddress(AddressDTO addressDTO) throws PersistenceException{
+    public Address createAddress(AddressDTOReq addressDTOReq) throws PersistenceException{
         //Fetch city from db
-        City city = cityRepo.getByName("city", addressDTO.getCity());
+        City city = cityRepo.getByName("city", addressDTOReq.getCity());
 
         //create address
-        Address address = modelMapper.map(addressDTO, Address.class);
+        Address address = modelMapper.map(addressDTOReq, Address.class);
         address.setLastUpdate(Instant.now());
         address.setCity(city);
 
