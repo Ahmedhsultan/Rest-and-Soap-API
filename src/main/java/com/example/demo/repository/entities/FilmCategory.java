@@ -12,12 +12,12 @@ public class FilmCategory {
     private FilmCategoryId id;
 
     @MapsId("filmId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "film_id", nullable = false)
     private Film film;
 
     @MapsId("categoryId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 

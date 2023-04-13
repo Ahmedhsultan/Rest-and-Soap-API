@@ -29,7 +29,7 @@ public class Address {
     private String district;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 

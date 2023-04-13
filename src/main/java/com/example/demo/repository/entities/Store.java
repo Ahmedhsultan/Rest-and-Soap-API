@@ -14,12 +14,12 @@ public class Store {
     private Short id;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "manager_staff_id", nullable = false)
     private Staff managerStaff;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 

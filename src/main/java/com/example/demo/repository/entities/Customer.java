@@ -15,7 +15,7 @@ public class Customer {
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
@@ -34,7 +34,7 @@ public class Customer {
     private String email;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
