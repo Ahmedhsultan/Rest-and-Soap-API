@@ -2,9 +2,9 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
-import com.example.demo.webserviceies.rest.DTOs.requests.RentalDTOReq;
-import com.example.demo.webserviceies.rest.DTOs.resources.RentalDTOResp;
-import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
+import com.example.demo.webservices.rest.DTOs.requests.RentalDTOReq;
+import com.example.demo.webservices.rest.DTOs.resources.RentalDTOResp;
+import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 

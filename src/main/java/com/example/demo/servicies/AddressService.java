@@ -4,9 +4,9 @@ import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.City;
 import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.CityRepo;
-import com.example.demo.webserviceies.rest.DTOs.requests.AddressDTOReq;
-import com.example.demo.webserviceies.rest.DTOs.resources.AddressDTOResp;
-import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
+import com.example.demo.webservices.rest.DTOs.requests.AddressDTOReq;
+import com.example.demo.webservices.rest.DTOs.resources.AddressDTOResp;
+import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 

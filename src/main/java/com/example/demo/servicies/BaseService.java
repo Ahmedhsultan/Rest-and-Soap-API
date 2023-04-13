@@ -1,8 +1,8 @@
 package com.example.demo.servicies;
 
 import com.example.demo.repository.repos.BaseRepo;
-import com.example.demo.webserviceies.rest.exception.exceptions.FileNotFoundException;
-import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
+import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
+import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 

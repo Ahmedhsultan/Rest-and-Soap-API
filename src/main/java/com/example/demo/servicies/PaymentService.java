@@ -2,9 +2,9 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
-import com.example.demo.webserviceies.rest.DTOs.requests.PaymentDTOReq;
-import com.example.demo.webserviceies.rest.DTOs.resources.PaymentDTOResp;
-import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
+import com.example.demo.webservices.rest.DTOs.requests.PaymentDTOReq;
+import com.example.demo.webservices.rest.DTOs.resources.PaymentDTOResp;
+import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;

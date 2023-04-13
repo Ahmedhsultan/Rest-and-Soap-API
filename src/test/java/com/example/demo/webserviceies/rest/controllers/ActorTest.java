@@ -1,6 +1,6 @@
 package com.example.demo.webserviceies.rest.controllers;
 
-import com.example.demo.webserviceies.rest.DTOs.requests.ActorDTOReq;
+import com.example.demo.webservices.rest.DTOs.requests.ActorDTOReq;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;

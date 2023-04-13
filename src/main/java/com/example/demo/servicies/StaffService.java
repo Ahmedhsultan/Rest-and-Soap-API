@@ -6,9 +6,9 @@ import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.StaffRepo;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.webserviceies.rest.DTOs.requests.StaffDTOReq;
-import com.example.demo.webserviceies.rest.DTOs.resources.StaffDTOResp;
-import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
+import com.example.demo.webservices.rest.DTOs.requests.StaffDTOReq;
+import com.example.demo.webservices.rest.DTOs.resources.StaffDTOResp;
+import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 

@@ -3,7 +3,7 @@ package com.example.demo.servicies;
 import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.StaffRepo;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.webserviceies.rest.DTOs.resources.StoreDTOResp;
+import com.example.demo.webservices.rest.DTOs.resources.StoreDTOResp;
 import org.modelmapper.ModelMapper;
 
 public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo>{
