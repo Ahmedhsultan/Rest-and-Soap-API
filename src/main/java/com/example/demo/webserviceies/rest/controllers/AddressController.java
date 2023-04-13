@@ -1,6 +1,5 @@
 package com.example.demo.webserviceies.rest.controllers;
 
-import com.example.demo.servicies.ActorService;
 import com.example.demo.servicies.AddressService;
 import com.example.demo.webserviceies.rest.DTOs.requests.AddressDTOReq;
 import jakarta.ws.rs.Consumes;

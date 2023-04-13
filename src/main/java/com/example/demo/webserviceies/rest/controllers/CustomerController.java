@@ -1,6 +1,5 @@
 package com.example.demo.webserviceies.rest.controllers;
 
-import com.example.demo.servicies.CountryService;
 import com.example.demo.servicies.CustomerService;
 import com.example.demo.webserviceies.rest.DTOs.requests.CustomerDTOReq;
 import jakarta.ws.rs.Consumes;

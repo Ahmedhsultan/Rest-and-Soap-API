@@ -1,6 +1,5 @@
 package com.example.demo.webserviceies.rest.controllers;
 
-import com.example.demo.servicies.FilmCategoryService;
 import com.example.demo.servicies.InventoryService;
 import com.example.demo.webserviceies.rest.DTOs.requests.InventoryDTOReq;
 import jakarta.ws.rs.Consumes;
