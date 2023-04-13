@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.Country;
 import com.example.demo.repository.repos.CountryRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.CountryDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.CountryDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -26,7 +27,7 @@ public class CountryService extends BaseService<Country, CountryDTOResp, Country
         try {
             countryRepo.save(country);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this country!!");
+            throw new OperationFaildException("Can't save this country!!");
         }
 
         return country;

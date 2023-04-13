@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
 import com.example.demo.webserviceies.rest.DTOs.requests.PaymentDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.PaymentDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -42,7 +43,7 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
         try {
             paymentRepo.save(payment);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this payment!!");
+            throw new OperationFaildException("Can't save this payment!!");
         }
 
         return payment;

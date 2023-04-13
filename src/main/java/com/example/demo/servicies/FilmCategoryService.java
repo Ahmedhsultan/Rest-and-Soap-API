@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
 import com.example.demo.webserviceies.rest.DTOs.requests.FilmCategoryDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.FilmCategoryDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -41,7 +42,7 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
         try {
             filmCategoryRepo.update(filmCategory);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this filmCategory!!");
+            throw new OperationFaildException("Can't save this filmCategory!!");
         }
 
         return filmCategory;

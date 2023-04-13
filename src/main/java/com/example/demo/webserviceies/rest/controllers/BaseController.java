@@ -19,8 +19,6 @@ public class BaseController <Service extends BaseService>{
                         @QueryParam("value") String value) {
         var actorDTOResp = service.get(columnName, value);
 
-        if (actorDTOResp == null)
-            return Response.status(Response.Status.NOT_FOUND).entity("Object not found!!").build();
         return Response.ok(actorDTOResp).build();
     }
     @DELETE
@@ -29,8 +27,6 @@ public class BaseController <Service extends BaseService>{
                            @QueryParam("value") String value) {
         Boolean status = service.delete(columnName, value);
 
-        if (status)
-            return Response.ok().build();
-        return Response.status(Response.Status.EXPECTATION_FAILED).entity("Operation failed!!").build();
+        return Response.ok().build();
     }
 }

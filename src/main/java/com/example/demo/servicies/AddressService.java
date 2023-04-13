@@ -6,6 +6,7 @@ import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.CityRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.AddressDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.AddressDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
@@ -36,7 +37,7 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
         try {
             addressRepo.save(address);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this address!!");
+            throw new OperationFaildException("Can't save this address!!");
         }
 
         return address;

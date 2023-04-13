@@ -6,6 +6,7 @@ import com.example.demo.repository.repos.FilmActorRepo;
 import com.example.demo.repository.repos.FilmRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.FilmActorDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.FilmActorDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -42,7 +43,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
         try {
             filmActorRepo.update(filmActor);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this filmActor!!");
+            throw new OperationFaildException("Can't save this filmActor!!");
         }
 
         return filmActor;

@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
 import com.example.demo.webserviceies.rest.DTOs.requests.RentalDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.RentalDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
@@ -43,7 +44,7 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
         try {
             rentalRepo.save(rental);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this rental!!");
+            throw new OperationFaildException("Can't save this rental!!");
         }
 
         return rental;

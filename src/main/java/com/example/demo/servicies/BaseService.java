@@ -1,6 +1,8 @@
 package com.example.demo.servicies;
 
 import com.example.demo.repository.repos.BaseRepo;
+import com.example.demo.webserviceies.rest.exception.exceptions.FileNotFoundException;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
@@ -21,7 +23,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,Integer,
 
             return dtoResp;
         }catch (PersistenceException persistenceException){
-            return null;
+            throw new FileNotFoundException("Can't delete this entity!!");
         }
     }
     public Boolean delete (String columnName, String value){
@@ -29,7 +31,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,Integer,
             Boolean status = repo.deleteByName(columnName, value);
             return status;
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't delete this entity!!");
+            throw new OperationFaildException("Can't delete this entity!!");
         }
     }
 }

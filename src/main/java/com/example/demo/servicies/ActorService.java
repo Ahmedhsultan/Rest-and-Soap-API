@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.Actor;
 import com.example.demo.repository.repos.ActorRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.ActorDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.ActorDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -28,7 +29,7 @@ public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo>{
         try {
             actorRepo.save(actor);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this actor!!");
+            throw new OperationFaildException("Can't save this actor!!");
         }
 
         return actor;

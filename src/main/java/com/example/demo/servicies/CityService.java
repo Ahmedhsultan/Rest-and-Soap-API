@@ -6,6 +6,7 @@ import com.example.demo.repository.repos.CityRepo;
 import com.example.demo.repository.repos.CountryRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.CityDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.CityDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -34,7 +35,7 @@ public class CityService extends BaseService<City, CityDTOResp, CityRepo>{
         try {
             cityRepo.save(city);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this city!!");
+            throw new OperationFaildException("Can't save this city!!");
         }
 
         return city;

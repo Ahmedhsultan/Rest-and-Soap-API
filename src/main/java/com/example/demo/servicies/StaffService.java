@@ -8,6 +8,7 @@ import com.example.demo.repository.repos.StaffRepo;
 import com.example.demo.repository.repos.StoreRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.StaffDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.StaffDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
@@ -43,7 +44,7 @@ public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo>{
         try {
             staffRepo.save(staff);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this staff!!");
+            throw new OperationFaildException("Can't save this staff!!");
         }
 
         return staff;

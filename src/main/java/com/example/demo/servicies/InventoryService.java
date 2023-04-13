@@ -8,6 +8,7 @@ import com.example.demo.repository.repos.InventoryRepo;
 import com.example.demo.repository.repos.StoreRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.InventoryDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.InventoryDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -40,7 +41,7 @@ public class InventoryService extends BaseService<Inventory, InventoryDTOResp, I
         try {
             inventoryRepo.save(inventory);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this inventory!!");
+            throw new OperationFaildException("Can't save this inventory!!");
         }
 
         return inventory;

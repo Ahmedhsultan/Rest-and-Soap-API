@@ -8,6 +8,7 @@ import com.example.demo.repository.repos.CustomerRepo;
 import com.example.demo.repository.repos.StoreRepo;
 import com.example.demo.webserviceies.rest.DTOs.requests.CustomerDTOReq;
 import com.example.demo.webserviceies.rest.DTOs.resources.CustomerDTOResp;
+import com.example.demo.webserviceies.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
@@ -41,7 +42,7 @@ public class CustomerService extends BaseService<Customer, CustomerDTOResp, Cust
         try {
             customerRepo.save(customer);
         }catch (PersistenceException persistenceException){
-            throw new PersistenceException("Can't save this customer!!");
+            throw new OperationFaildException("Can't save this customer!!");
         }
 
         return customer;
