@@ -16,17 +16,17 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,Integer,
         this.dtoClass = dtoClass;
     }
 
-    public DTOResp get (String columnName, String value){
+    public DTOResp get (String columnName, String value) throws FileNotFoundException{
         try {
             Entity entity = repo.getByName(columnName, value);
             DTOResp dtoResp = modelMapper.map(entity, dtoClass);
 
             return dtoResp;
         }catch (PersistenceException persistenceException){
-            throw new FileNotFoundException("Can't delete this entity!!");
+            throw new FileNotFoundException("Can't find this object!!");
         }
     }
-    public Boolean delete (String columnName, String value){
+    public Boolean delete (String columnName, String value) throws OperationFaildException{
         try {
             Boolean status = repo.deleteByName(columnName, value);
             return status;

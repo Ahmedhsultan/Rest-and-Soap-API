@@ -10,9 +10,7 @@ import jakarta.ws.rs.core.Response;
 
 public class BaseController <Service extends BaseService>{
     private Service service;
-    public BaseController(Service service){
-        this.service = service;
-    }
+    public BaseController(Service service){this.service = service;}
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     public Response get(@QueryParam("column") String columnName,
@@ -25,7 +23,7 @@ public class BaseController <Service extends BaseService>{
     @Consumes(MediaType.TEXT_PLAIN)
     public Response delete(@QueryParam("column") String columnName,
                            @QueryParam("value") String value) {
-        Boolean status = service.delete(columnName, value);
+        service.delete(columnName, value);
 
         return Response.ok().build();
     }
