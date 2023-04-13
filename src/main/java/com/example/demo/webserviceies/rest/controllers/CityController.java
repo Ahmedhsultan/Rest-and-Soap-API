@@ -1,9 +1,8 @@
 package com.example.demo.webserviceies.rest.controllers;
 
+import com.example.demo.servicies.CategoryService;
 import com.example.demo.servicies.CityService;
-import com.example.demo.servicies.CountryService;
-import com.example.demo.webserviceies.rest.DTOs.CityDTO;
-import com.example.demo.webserviceies.rest.DTOs.CountryDTO;
+import com.example.demo.webserviceies.rest.DTOs.requests.CityDTOReq;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -11,12 +10,15 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("city")
-public class CityController {
+public class CityController extends BaseController<CityService>{
+    public CityController(){
+        super(new CityService());
+    }
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(CityDTO cityDTO){
+    public Response create(CityDTOReq cityDTOReq){
         CityService cityService = new CityService();
-        cityService.createCity(cityDTO);
+        cityService.createCity(cityDTOReq);
 
         return Response.ok().build();
     }
