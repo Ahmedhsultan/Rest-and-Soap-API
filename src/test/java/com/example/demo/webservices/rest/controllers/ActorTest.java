@@ -1,4 +1,4 @@
-package com.example.demo.webserviceies.rest.controllers;
+package com.example.demo.webservices.rest.controllers;
 
 import com.example.demo.webservices.rest.DTOs.requests.ActorDTOReq;
 import jakarta.ws.rs.client.Client;
