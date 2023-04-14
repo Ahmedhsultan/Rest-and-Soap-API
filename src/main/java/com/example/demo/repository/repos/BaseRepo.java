@@ -7,7 +7,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import java.util.List;
 
-public class BaseRepo <Entity, ID, Name>{
+public class BaseRepo <Entity, ID>{
     protected Class<Entity> entityClass;
     public BaseRepo(Class<Entity> entityClass){this.entityClass = entityClass;}
 
@@ -43,23 +43,7 @@ public class BaseRepo <Entity, ID, Name>{
 
         return  entitys;
     }
-    public boolean deleteById(ID id){
-        Boolean status = Manager.doTransaction((entityManager)->{
-            //Definitions
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaDelete<Entity> criteriaDelete = criteriaBuilder.createCriteriaDelete(entityClass);
-            Root<Entity> root = criteriaDelete.from(entityClass);
-
-            //Queries
-            criteriaDelete.where(criteriaBuilder.equal(root.get("id"), id));
-            entityManager.createQuery(criteriaDelete).executeUpdate();
-
-            return true;
-        });
-
-        return  status;
-    }
-    public boolean deleteByName(String columnName, String value){
+    public boolean deleteByColumnName(String columnName, String value){
         Boolean status = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

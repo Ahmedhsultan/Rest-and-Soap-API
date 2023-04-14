@@ -3,6 +3,7 @@ package com.example.demo.repository.repos;
 import com.example.demo.repository.entities.Actor;
 import com.example.demo.repository.entities.Film;
 import com.example.demo.repository.entities.FilmActor;
+import com.example.demo.repository.entities.FilmActorId;
 import com.example.demo.repository.manager.Manager;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -11,7 +12,7 @@ import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
-public class FilmActorRepo extends BaseRepo<FilmActor, Integer, String>{
+public class FilmActorRepo extends BaseRepo<FilmActor, FilmActorId>{
 
     public FilmActorRepo() {
         super(FilmActor.class);

@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,Integer,String>>{
+public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
     private Repo repo;
     private Class<DTOResp> dtoClass;
     private ModelMapper modelMapper;
@@ -32,7 +32,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,Integer,
     }
     public Boolean delete (String columnName, String value) throws OperationFaildException{
         try {
-            Boolean status = repo.deleteByName(columnName, value);
+            Boolean status = repo.deleteByColumnName(columnName, value);
             return status;
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't delete this entity!!");
