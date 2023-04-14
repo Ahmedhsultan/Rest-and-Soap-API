@@ -20,7 +20,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     private FilmActorRepo filmActorRepo;
     private ModelMapper modelMapper;
     public FilmActorService(){
-        super(new FilmActorRepo(), FilmActorDTOResp.class);
+        super(new FilmActorRepo());
         this.filmActorRepo = new FilmActorRepo();
         this.filmRepo = new FilmRepo();
         this.actorRepo = new ActorRepo();

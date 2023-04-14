@@ -13,7 +13,7 @@ public class LanguageService extends BaseService<Language, LanguageDTOResp, Lang
     private LanguageRepo languageRepo;
     private ModelMapper modelMapper;
     public LanguageService(){
-        super(new LanguageRepo(), LanguageDTOResp.class);
+        super(new LanguageRepo());
         this.languageRepo = new LanguageRepo();
         this.modelMapper = new ModelMapper();
     }

@@ -13,7 +13,7 @@ public class CountryService extends BaseService<Country, CountryDTOResp, Country
     private CountryRepo countryRepo;
     private ModelMapper modelMapper;
     public CountryService(){
-        super(new CountryRepo(), CountryDTOResp.class);
+        super(new CountryRepo());
         this.countryRepo = new CountryRepo();
         this.modelMapper = new ModelMapper();
     }

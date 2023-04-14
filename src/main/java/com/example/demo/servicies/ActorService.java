@@ -14,7 +14,7 @@ public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo>{
     private ModelMapper modelMapper;
 
     public ActorService(){
-        super(new ActorRepo(), ActorDTOResp.class);
+        super(new ActorRepo());
         //Create objects from repositories
         this.modelMapper = new ModelMapper();
         this.actorRepo = new ActorRepo();

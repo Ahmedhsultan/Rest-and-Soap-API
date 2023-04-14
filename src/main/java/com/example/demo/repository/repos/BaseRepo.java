@@ -69,6 +69,13 @@ public class BaseRepo <Entity, ID>{
         });
         return  status;
     }
+    public boolean delete(Entity entity){
+        Boolean status = Manager.doTransaction((entityManager)->{
+            entityManager.remove(entity);
+            return true;
+        });
+        return  status;
+    }
     public boolean update(Entity entity){
         Boolean status = Manager.doTransaction((entityManager)->{
             entityManager.merge(entity);

@@ -19,7 +19,7 @@ public class CustomerService extends BaseService<Customer, CustomerDTOResp, Cust
     private AddressRepo addressRepo;
     private ModelMapper modelMapper;
     public CustomerService(){
-        super(new CustomerRepo(), CustomerDTOResp.class);
+        super(new CustomerRepo());
         this.storeRepo = new StoreRepo();
         this.addressRepo = new AddressRepo();
         this.customerRepo = new CustomerRepo();

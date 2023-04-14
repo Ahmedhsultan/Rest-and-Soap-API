@@ -18,7 +18,7 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
     private CityRepo cityRepo;
     private ModelMapper modelMapper;
     public AddressService(){
-        super(new AddressRepo(), AddressDTOResp.class);
+        super(new AddressRepo());
         this.cityRepo = new CityRepo();
         this.addressRepo = new AddressRepo();
         this.modelMapper = new ModelMapper();

@@ -19,7 +19,7 @@ public class InventoryService extends BaseService<Inventory, InventoryDTOResp, I
     private InventoryRepo inventoryRepo;
     private ModelMapper modelMapper;
     public InventoryService(){
-        super(new InventoryRepo(), InventoryDTOResp.class);
+        super(new InventoryRepo());
         this.filmRepo = new FilmRepo();
         this.storeRepo = new StoreRepo();
         this.inventoryRepo = new InventoryRepo();
