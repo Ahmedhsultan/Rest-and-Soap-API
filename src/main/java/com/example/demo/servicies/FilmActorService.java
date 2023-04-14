@@ -6,10 +6,13 @@ import com.example.demo.repository.repos.FilmActorRepo;
 import com.example.demo.repository.repos.FilmRepo;
 import com.example.demo.webservices.rest.DTOs.requests.FilmActorDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmActorDTOResp;
+import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, FilmActorRepo>{
     private ActorRepo actorRepo;
@@ -47,5 +50,32 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
         }
 
         return filmActor;
+    }
+    public List<FilmActorDTOResp> getByFilm(int filmId) throws FileNotFoundException {
+        try {
+            Film film = filmRepo.getById(filmId);
+            List<FilmActor> filmActors = filmActorRepo.getByFilm(film);
+            List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
+                    .collect(Collectors.toList());
+
+            return dtoResp;
+        }catch (PersistenceException persistenceException){
+            throw new FileNotFoundException("Can't find this object!!");
+        }
+    }
+    public List<FilmActorDTOResp> getByActor(int actorId) throws FileNotFoundException {
+        try {
+            Actor actor = actorRepo.getById(actorId);
+            List<FilmActor> filmActors = filmActorRepo.getByActor(actor);
+            List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
+                    .collect(Collectors.toList());
+
+            return dtoResp;
+        }catch (PersistenceException persistenceException){
+            throw new FileNotFoundException("Can't find this object!!");
+        }
+    }
+    public void delete(int actorId, int filmId){
+
     }
 }

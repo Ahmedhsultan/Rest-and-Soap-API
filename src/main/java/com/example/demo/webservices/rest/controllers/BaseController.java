@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.Response;
 
 public class BaseController <Service extends BaseService>{
     private Service service;
-    public BaseController(Service service){this.service = service;}
+    protected BaseController(Service service){this.service = service;}
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     public Response get(@QueryParam("column") String columnName,
