@@ -17,7 +17,7 @@ public class StoreController extends BaseController<StoreService>{
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(StoreDTOReq storeDTOReq){
         StoreService storeService = new StoreService();
-//        storeService.create(storeDTO);
+        storeService.create(storeDTOReq);
 
         return Response.ok().build();
     }
