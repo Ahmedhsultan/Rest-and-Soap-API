@@ -27,9 +27,9 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
 
     public Rental create(RentalDTOReq rentalDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Staff staff = staffRepo.getByName("firstName", rentalDTOReq.getStaffFirstName());
+        Staff staff = staffRepo.getByName("firstName", rentalDTOReq.getStaffFirstName()).get(0);
         Inventory inventory = inventoryRepo.getById(rentalDTOReq.getInventoryId());
-        Customer customer = customerRepo.getByName("firstName", rentalDTOReq.getCustomerFirstName());
+        Customer customer = customerRepo.getByName("firstName", rentalDTOReq.getCustomerFirstName()).get(0);
 
         //Create rental
         Rental rental = new Rental();

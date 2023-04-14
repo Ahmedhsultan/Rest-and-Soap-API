@@ -26,8 +26,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
 
     public FilmActor create(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = filmRepo.getByName("title", filmActorDTOReq.getTitle());
-        Actor actor = actorRepo.getByName("firstName", filmActorDTOReq.getFirstName());
+        Film film = filmRepo.getByName("title", filmActorDTOReq.getTitle()).get(0);
+        Actor actor = actorRepo.getByName("firstName", filmActorDTOReq.getFirstName()).get(0);
 
         FilmActorId filmActorId = new FilmActorId();
         filmActorId.setActorId(actor.getId());

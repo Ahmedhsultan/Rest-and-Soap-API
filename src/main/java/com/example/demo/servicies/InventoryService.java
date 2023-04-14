@@ -28,7 +28,7 @@ public class InventoryService extends BaseService<Inventory, InventoryDTOResp, I
 
     public Inventory create(InventoryDTOReq inventoryDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Film file = filmRepo.getByName("title", inventoryDTOReq.getFilmTitle());
+        Film file = filmRepo.getByName("title", inventoryDTOReq.getFilmTitle()).get(0);
         Store store = storeRepo.getById(inventoryDTOReq.getStoreId());
 
         //Create Inventory

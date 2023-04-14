@@ -26,9 +26,9 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
 
     public Payment create(PaymentDTOReq paymentDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Staff staff = staffRepo.getByName("firstName", paymentDTOReq.getStaffFirstName());
+        Staff staff = staffRepo.getByName("firstName", paymentDTOReq.getStaffFirstName()).get(0);
         Rental rental = rentalRepo.getById(paymentDTOReq.getRentalId());
-        Customer customer = customerRepo.getByName("firstName", paymentDTOReq.getCustomerFirstName());
+        Customer customer = customerRepo.getByName("firstName", paymentDTOReq.getCustomerFirstName()).get(0);
 
         //Create payment
         Payment payment = new Payment();

@@ -6,6 +6,9 @@ import com.example.demo.webservices.rest.exception.exceptions.OperationFaildExce
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,Integer,String>>{
     private Repo repo;
     private Class<DTOResp> dtoClass;
@@ -16,10 +19,11 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,Integer,
         this.dtoClass = dtoClass;
     }
 
-    public DTOResp get (String columnName, String value) throws FileNotFoundException{
+    public List<DTOResp> get (String columnName, String value) throws FileNotFoundException{
         try {
-            Entity entity = repo.getByName(columnName, value);
-            DTOResp dtoResp = modelMapper.map(entity, dtoClass);
+            List<Entity> entity = repo.getByName(columnName, value);
+            List<DTOResp> dtoResp = entity.stream().map(x -> modelMapper.map(x, dtoClass))
+                    .collect(Collectors.toList());
 
             return dtoResp;
         }catch (PersistenceException persistenceException){

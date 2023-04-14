@@ -29,7 +29,7 @@ public class CustomerService extends BaseService<Customer, CustomerDTOResp, Cust
     public Customer create(CustomerDTOReq customerDTOReq) throws PersistenceException {
         //Fetch store and address from database
         Store store = storeRepo.getById(customerDTOReq.getStore_ID());
-        Address address = addressRepo.getByName("address", customerDTOReq.getAddress());
+        Address address = addressRepo.getByName("address", customerDTOReq.getAddress()).get(0);
 
         //Create new customer
         Customer customer = modelMapper.map(customerDTOReq, Customer.class);

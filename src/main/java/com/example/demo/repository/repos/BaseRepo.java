@@ -92,8 +92,8 @@ public class BaseRepo <Entity, ID, Name>{
         });
         return  status;
     }
-    public Entity getByName(String columnName, String value){
-        Entity entity = Manager.doTransaction((entityManager)->{
+    public List<Entity> getByName(String columnName, String value){
+        List<Entity> entity = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
@@ -101,7 +101,7 @@ public class BaseRepo <Entity, ID, Name>{
 
             //Queries
             criteriaQuery.where(criteriaBuilder.equal(root.get(columnName), value)).select(root);
-            Entity result = entityManager.createQuery(criteriaQuery).getSingleResult();
+            List<Entity> result = entityManager.createQuery(criteriaQuery).getResultList();
 
             return result;
         });
