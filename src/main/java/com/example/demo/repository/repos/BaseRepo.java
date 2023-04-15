@@ -35,7 +35,7 @@ public class BaseRepo <Entity, ID>{
 
         return  entity;
     }
-    public <value> List<Entity> find(String columnName, value value){
+    public <Type> List<Entity> find(String columnName, Type value){
         List<Entity> entity = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
