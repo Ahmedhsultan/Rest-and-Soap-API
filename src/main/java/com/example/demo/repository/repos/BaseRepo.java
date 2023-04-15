@@ -5,11 +5,19 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class BaseRepo <Entity, ID>{
     protected Class<Entity> entityClass;
-    public BaseRepo(Class<Entity> entityClass){this.entityClass = entityClass;}
+    public BaseRepo(){
+        //Get class type of generics by reflections
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        Type[] typeArguments = genericSuperclass.getActualTypeArguments();
+        this.entityClass = (Class<Entity>) typeArguments[0];
+    }
 
     public Entity find(ID id){
         Entity entity = Manager.doTransaction((entityManager)->{
