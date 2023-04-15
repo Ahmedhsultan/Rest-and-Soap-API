@@ -54,7 +54,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     public List<FilmActorDTOResp> getByFilm(int filmId) throws FileNotFoundException {
         try {
             Film film = filmRepo.find(filmId);
-            List<FilmActor> filmActors = filmActorRepo.getByFilm(film);
+            List<FilmActor> filmActors = filmActorRepo.<Film>find("film",film);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());
 
@@ -66,7 +66,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     public List<FilmActorDTOResp> getByActor(int actorId) throws FileNotFoundException {
         try {
             Actor actor = actorRepo.find(actorId);
-            List<FilmActor> filmActors = filmActorRepo.getByActor(actor);
+            List<FilmActor> filmActors = filmActorRepo.<Actor>find("actor",actor);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());
 
@@ -74,8 +74,5 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
         }catch (PersistenceException persistenceException){
             throw new FileNotFoundException("Can't find this object!!");
         }
-    }
-    public void delete(int actorId, int filmId){
-
     }
 }
