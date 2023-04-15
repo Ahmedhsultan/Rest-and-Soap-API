@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("category")
 public class CategoryController extends BaseController<CategoryDTOResp, CategoryService>{
-    public CategoryController(){
-        super(new CategoryService());
+    public CategoryController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CategoryDTOReq categoryDTOReq){

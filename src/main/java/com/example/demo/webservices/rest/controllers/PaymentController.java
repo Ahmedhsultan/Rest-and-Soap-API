@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("payment")
 public class PaymentController extends BaseController<PaymentDTOResp, PaymentService>{
-    public PaymentController(){
-        super(new PaymentService());
+    public PaymentController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(PaymentDTOReq paymentDTOReq){

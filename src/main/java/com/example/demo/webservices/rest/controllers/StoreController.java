@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("store")
 public class StoreController extends BaseController<StoreDTOResp, StoreService>{
-    public StoreController(){
-        super(new StoreService());
+    public StoreController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(StoreDTOReq storeDTOReq){

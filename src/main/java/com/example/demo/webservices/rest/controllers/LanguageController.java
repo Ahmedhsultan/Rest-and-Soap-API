@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("language")
 public class LanguageController extends BaseController<LanguageDTOResp, LanguageService>{
-    public LanguageController(){
-        super(new LanguageService());
+    public LanguageController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(LanguageDTOReq languageDTOReq){

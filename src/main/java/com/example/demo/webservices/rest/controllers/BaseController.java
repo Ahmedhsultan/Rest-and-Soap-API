@@ -4,10 +4,18 @@ import com.example.demo.servicies.BaseService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 public class BaseController <DTOResp,Service extends BaseService>{
     private Service service;
-    protected BaseController(Service service){this.service = service;}
+    protected BaseController() throws InstantiationException, IllegalAccessException {
+        //Create new instance from service by reflection
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        Type[] typeArguments = genericSuperclass.getActualTypeArguments();
+        Class<Service> serviceClass = (Class<Service>) typeArguments[1];
+        this.service = serviceClass.newInstance();
+    }
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     public Response get(@QueryParam("column") String columnName,
@@ -17,7 +25,8 @@ public class BaseController <DTOResp,Service extends BaseService>{
         return Response.ok(actorDTOResp).build();
     }
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/getAll")
+    @Consumes(MediaType.TEXT_PLAIN)
     public Response get() {
         var actorDTOResps = service.getAll();
 

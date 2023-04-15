@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("rental")
 public class RentalController extends BaseController<RentalDTOResp, RentalService>{
-    public RentalController(){
-        super(new RentalService());
+    public RentalController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(RentalDTOReq rentalDTOReq){

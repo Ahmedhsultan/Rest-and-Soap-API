@@ -17,9 +17,9 @@ import java.util.List;
 
 @Path(("filmcategory"))
 public class FilmCategoryController extends BaseController<FilmCategoryDTOResp, FilmCategoryService>{
-    public FilmCategoryController(){
-        super(new FilmCategoryService());
+    public FilmCategoryController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(FilmCategoryDTOReq filmCategoryDTOReq){

@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("film")
 public class FilmController extends BaseController<FilmDTOResp, FilmService>{
-    public FilmController(){
-        super(new FilmService());
+    public FilmController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(FilmDTOReq filmDTOReq){

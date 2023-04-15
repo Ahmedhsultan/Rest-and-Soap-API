@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("inventory")
 public class InventoryController extends BaseController<InventoryDTOResp, InventoryService>{
-    public InventoryController(){
-        super(new InventoryService());
+    public InventoryController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(InventoryDTOReq inventoryDTOReq){

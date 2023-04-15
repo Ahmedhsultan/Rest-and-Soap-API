@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("address")
 public class AddressController extends BaseController<AddressDTOResp,AddressService>{
-    public AddressController(){
-        super(new AddressService());
+    public AddressController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(AddressDTOReq addressDTOReq){

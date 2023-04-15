@@ -108,4 +108,19 @@ public class BaseRepo <Entity, ID>{
         });
         return  status;
     }
+    public Long count(){
+        Long count = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
+
+            //Queries
+            criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(entityClass)));
+            Long rowCount = entityManager.createQuery(criteriaQuery).getSingleResult();
+
+            return rowCount;
+        });
+
+        return  count;
+    }
 }

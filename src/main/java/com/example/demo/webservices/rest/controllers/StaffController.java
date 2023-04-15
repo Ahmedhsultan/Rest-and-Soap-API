@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("staff")
 public class StaffController extends BaseController<StaffDTOResp, StaffService>{
-    public StaffController(){
-        super(new StaffService());
+    public StaffController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(StaffDTOReq staffDTOReq){

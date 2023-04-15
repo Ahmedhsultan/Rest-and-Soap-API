@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("country")
 public class CountryController extends BaseController<CountryDTOResp, CountryService>{
-    public CountryController(){
-        super(new CountryService());
+    public CountryController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CountryDTOReq countryDTOReq){

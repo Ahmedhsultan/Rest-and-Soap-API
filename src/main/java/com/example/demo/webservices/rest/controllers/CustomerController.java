@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("customer")
 public class CustomerController extends BaseController<CategoryDTOResp, CustomerService>{
-    public CustomerController(){
-        super(new CustomerService());
+    public CustomerController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CustomerDTOReq customerDTOReq){

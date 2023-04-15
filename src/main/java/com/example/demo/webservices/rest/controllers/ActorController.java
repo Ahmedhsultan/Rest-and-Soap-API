@@ -9,9 +9,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("actor")
 public class ActorController extends BaseController<ActorDTOResp, ActorService>{
-    public ActorController(){
-        super(new ActorService());
+    public ActorController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response post(ActorDTOReq actorDTOReq) {

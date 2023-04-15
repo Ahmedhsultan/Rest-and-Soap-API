@@ -48,6 +48,15 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
             throw new FileNotFoundException("Can't find any object!!");
         }
     }
+    public Long getCount () throws FileNotFoundException{
+        try {
+            Long rowCount = repo.count();
+
+            return rowCount;
+        }catch (PersistenceException persistenceException){
+            throw new FileNotFoundException("Can't count table!!");
+        }
+    }
     public Boolean delete (String columnName, String value) throws OperationFaildException{
         try {
             Boolean status = repo.delete(columnName, value);

@@ -12,9 +12,9 @@ import jakarta.ws.rs.core.Response;
 
 @Path("city")
 public class CityController extends BaseController<CityDTOResp, CityService>{
-    public CityController(){
-        super(new CityService());
+    public CityController() throws InstantiationException, IllegalAccessException {
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(CityDTOReq cityDTOReq){
