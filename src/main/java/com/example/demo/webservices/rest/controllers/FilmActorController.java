@@ -2,9 +2,7 @@ package com.example.demo.webservices.rest.controllers;
 
 import com.example.demo.servicies.FilmActorService;
 import com.example.demo.webservices.rest.DTOs.requests.FilmActorDTOReq;
-import com.example.demo.webservices.rest.DTOs.resources.ActorDTOResp;
 import com.example.demo.webservices.rest.DTOs.resources.FilmActorDTOResp;
-import com.example.demo.webservices.rest.DTOs.resources.FilmActorIdDTOResp;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
