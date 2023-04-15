@@ -2,6 +2,8 @@ package com.example.demo.webservices.rest.controllers;
 
 import com.example.demo.servicies.FilmService;
 import com.example.demo.webservices.rest.DTOs.requests.FilmDTOReq;
+import com.example.demo.webservices.rest.DTOs.resources.ActorDTOResp;
+import com.example.demo.webservices.rest.DTOs.resources.FilmDTOResp;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -9,7 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("film")
-public class FilmController extends BaseController<FilmService>{
+public class FilmController extends BaseController<FilmDTOResp, FilmService>{
     public FilmController(){
         super(new FilmService());
     }

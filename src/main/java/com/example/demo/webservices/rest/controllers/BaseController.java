@@ -8,7 +8,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-public class BaseController <Service extends BaseService>{
+public class BaseController <DTOResp,Service extends BaseService>{
     private Service service;
     protected BaseController(Service service){this.service = service;}
     @GET
@@ -24,6 +24,13 @@ public class BaseController <Service extends BaseService>{
     public Response delete(@QueryParam("column") String columnName,
                            @QueryParam("value") String value) {
         service.delete(columnName, value);
+
+        return Response.ok().build();
+    }
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response delete(DTOResp dtoResp) {
+        service.delete(dtoResp);
 
         return Response.ok().build();
     }
