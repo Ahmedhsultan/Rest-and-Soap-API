@@ -27,10 +27,18 @@ public class BaseController <DTOResp,Service extends BaseService>{
     @GET
     @Path("/getAll")
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response get() {
+    public Response getAll() {
         var actorDTOResps = service.getAll();
 
         return Response.ok(actorDTOResps).build();
+    }
+    @GET
+    @Path("/count")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response getCount() {
+        var count = service.getCount();
+
+        return Response.ok("Rows Number is : " + count).build();
     }
     @DELETE
     @Consumes(MediaType.TEXT_PLAIN)
