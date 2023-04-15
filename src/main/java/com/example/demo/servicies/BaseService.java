@@ -37,6 +37,17 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
             throw new FileNotFoundException("Can't find this object!!");
         }
     }
+    public List<DTOResp> getAll () throws FileNotFoundException{
+        try {
+            List<Entity> entity = repo.findAll();
+            List<DTOResp> dtoResp = entity.stream().map(x -> modelMapper.map(x, dtoClass))
+                    .collect(Collectors.toList());
+
+            return dtoResp;
+        }catch (PersistenceException persistenceException){
+            throw new FileNotFoundException("Can't find any object!!");
+        }
+    }
     public Boolean delete (String columnName, String value) throws OperationFaildException{
         try {
             Boolean status = repo.delete(columnName, value);
@@ -52,6 +63,15 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
             return status;
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't delete this entity!!");
+        }
+    }
+    public Boolean put (DTOResp dtoResp) throws OperationFaildException{
+        try {
+            Entity entity = modelMapper.map(dtoResp, entityClass);
+            Boolean status = repo.update(entity);
+            return status;
+        }catch (PersistenceException persistenceException){
+            throw new OperationFaildException("Can't edit this entity!!");
         }
     }
 }
