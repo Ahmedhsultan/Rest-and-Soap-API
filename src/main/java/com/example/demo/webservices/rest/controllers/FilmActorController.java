@@ -40,12 +40,4 @@ public class FilmActorController extends BaseController<FilmActorDTOResp, FilmAc
 
         return Response.ok(actorDTOResp).build();
     }
-
-//    @Override
-//    public Response delete(String actorId, String filmId) {
-//        FilmActorService filmActorService = new FilmActorService();
-//        filmActorService.delete(Integer.parseInt(actorId),Integer.parseInt(filmId));
-//
-//        return Response.ok().build();
-//    }
 }
