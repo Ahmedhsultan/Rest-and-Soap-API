@@ -44,7 +44,7 @@ public class Country {
     }
 
     public void setLastUpdate(Instant lastUpdate) {
-        this.lastUpdate = lastUpdate;
+        this.lastUpdate = Instant.now();
     }
 
 }
