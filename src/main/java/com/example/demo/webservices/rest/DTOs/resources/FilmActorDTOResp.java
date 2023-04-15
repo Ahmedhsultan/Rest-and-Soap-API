@@ -5,6 +5,7 @@ import java.time.Instant;
 
 @Data
 public class FilmActorDTOResp {
+    private FilmActorIdDTOResp id;
     private ActorDTOResp actor;
     private FilmDTOResp film;
     private Instant lastUpdate;
