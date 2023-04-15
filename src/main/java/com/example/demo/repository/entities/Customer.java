@@ -47,7 +47,7 @@ public class Customer {
     private Instant createDate;
 
     @Column(name = "last_update")
-    private Instant lastUpdate;
+    private Instant lastUpdate = Instant.now();
 
     public Integer getId() {
         return id;

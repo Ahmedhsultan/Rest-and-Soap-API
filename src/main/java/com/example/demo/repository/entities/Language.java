@@ -21,7 +21,7 @@ public class Language {
 
     @NotNull
     @Column(name = "last_update", nullable = false)
-    private Instant lastUpdate;
+    private Instant lastUpdate = Instant.now();
 
     public Short getId() {
         return id;

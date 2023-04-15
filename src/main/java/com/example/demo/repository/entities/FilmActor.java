@@ -23,7 +23,7 @@ public class FilmActor {
 
     @NotNull
     @Column(name = "last_update", nullable = false)
-    private Instant lastUpdate;
+    private Instant lastUpdate = Instant.now();
 
     public FilmActorId getId() {
         return id;

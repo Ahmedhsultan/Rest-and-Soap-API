@@ -37,7 +37,7 @@ public class Payment {
     private Instant paymentDate;
 
     @Column(name = "last_update")
-    private Instant lastUpdate;
+    private Instant lastUpdate = Instant.now();
 
     public Integer getId() {
         return id;

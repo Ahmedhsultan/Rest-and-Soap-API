@@ -23,7 +23,7 @@ public class FilmCategory {
 
     @NotNull
     @Column(name = "last_update", nullable = false)
-    private Instant lastUpdate;
+    private Instant lastUpdate = Instant.now();
 
     public FilmCategoryId getId() {
         return id;

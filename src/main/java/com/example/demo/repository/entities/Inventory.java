@@ -25,7 +25,7 @@ public class Inventory {
 
     @NotNull
     @Column(name = "last_update", nullable = false)
-    private Instant lastUpdate;
+    private Instant lastUpdate = Instant.now();
 
     public Integer getId() {
         return id;
