@@ -24,8 +24,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
 
     public FilmCategory create(FilmCategoryDTOReq filmCategoryDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = filmRepo.getByName("title", filmCategoryDTOReq.getFilmTitle()).get(0);
-        Category category = categoryRepo.getByName("name", filmCategoryDTOReq.getCategoryName()).get(0);
+        Film film = filmRepo.find("title", filmCategoryDTOReq.getFilmTitle()).get(0);
+        Category category = categoryRepo.find("name", filmCategoryDTOReq.getCategoryName()).get(0);
 
         //Create filmCategory
         FilmCategoryId filmCategoryId = new FilmCategoryId();

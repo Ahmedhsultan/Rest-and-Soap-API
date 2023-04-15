@@ -24,8 +24,8 @@ public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo>{
 
     public Film create(FilmDTOReq filmDTOReq) throws PersistenceException {
         //Fetch language from db
-        Language language = languageRepo.getByName("name", filmDTOReq.getLanguage()).get(0);
-        Language OriginalLanguage = languageRepo.getByName("name", filmDTOReq.getOriginalLanguage()).get(0);
+        Language language = languageRepo.find("name", filmDTOReq.getLanguage()).get(0);
+        Language OriginalLanguage = languageRepo.find("name", filmDTOReq.getOriginalLanguage()).get(0);
 
         Film film = modelMapper.map(filmDTOReq, Film.class);
         film.setLanguage(language);

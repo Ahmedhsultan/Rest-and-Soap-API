@@ -31,8 +31,8 @@ public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo>{
 
     public Staff create(StaffDTOReq staffDTOReq) throws PersistenceException {
         //Fetch Address and store from db
-        Address address = addressRepo.getByName("address", staffDTOReq.getAddress()).get(0);
-        Store store = storeRepo.getById(staffDTOReq.getStoreId());
+        Address address = addressRepo.find("address", staffDTOReq.getAddress()).get(0);
+        Store store = storeRepo.find(staffDTOReq.getStoreId());
 
         //Create object of staff
         Staff staff = modelMapper.map(staffDTOReq, Staff.class);

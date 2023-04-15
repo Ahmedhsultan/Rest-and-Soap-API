@@ -28,7 +28,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
 
     public List<DTOResp> get (String columnName, String value) throws FileNotFoundException{
         try {
-            List<Entity> entity = repo.getByName(columnName, value);
+            List<Entity> entity = repo.find(columnName, value);
             List<DTOResp> dtoResp = entity.stream().map(x -> modelMapper.map(x, dtoClass))
                     .collect(Collectors.toList());
 
@@ -39,7 +39,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
     }
     public Boolean delete (String columnName, String value) throws OperationFaildException{
         try {
-            Boolean status = repo.deleteByColumnName(columnName, value);
+            Boolean status = repo.delete(columnName, value);
             return status;
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't delete this entity!!");

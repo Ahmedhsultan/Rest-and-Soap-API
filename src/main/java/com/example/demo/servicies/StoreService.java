@@ -30,8 +30,8 @@ public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo>{
 
     public Store create(StoreDTOReq storeDTOReq) throws PersistenceException {
         //Fetch Address and staffManger from db
-        Staff staffManger = staffRepo.getByName("firstName", storeDTOReq.getManagerStaffFirstName()).get(0);
-        Address address = addressRepo.getByName("address", storeDTOReq.getAddress()).get(0);
+        Staff staffManger = staffRepo.find("firstName", storeDTOReq.getManagerStaffFirstName()).get(0);
+        Address address = addressRepo.find("address", storeDTOReq.getAddress()).get(0);
 
         //Create object of store
         Store store = new Store();

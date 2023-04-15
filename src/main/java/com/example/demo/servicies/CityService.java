@@ -24,7 +24,7 @@ public class CityService extends BaseService<City, CityDTOResp, CityRepo>{
 
     public City createCity(CityDTOReq cityDTOReq) throws PersistenceException {
 
-        Country country = countryRepo.getByName("country", cityDTOReq.getCountry()).get(0);
+        Country country = countryRepo.find("country", cityDTOReq.getCountry()).get(0);
 
         City city = new City();
         city.setCountry(country);

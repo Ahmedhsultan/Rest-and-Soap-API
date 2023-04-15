@@ -11,7 +11,7 @@ public class BaseRepo <Entity, ID>{
     protected Class<Entity> entityClass;
     public BaseRepo(Class<Entity> entityClass){this.entityClass = entityClass;}
 
-    public Entity getById(ID id){
+    public Entity find(ID id){
         Entity entity = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -27,7 +27,23 @@ public class BaseRepo <Entity, ID>{
 
         return  entity;
     }
-    public List<Entity> getAll(){
+    public List<Entity> find(String columnName, String value){
+        List<Entity> entity = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<Entity> root = criteriaQuery.from(entityClass);
+
+            //Queries
+            criteriaQuery.where(criteriaBuilder.equal(root.get(columnName), value)).select(root);
+            List<Entity> result = entityManager.createQuery(criteriaQuery).getResultList();
+
+            return result;
+        });
+
+        return  entity;
+    }
+    public List<Entity> findAll(){
         List<Entity> entitys = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -43,7 +59,14 @@ public class BaseRepo <Entity, ID>{
 
         return  entitys;
     }
-    public boolean deleteByColumnName(String columnName, String value){
+    public boolean delete(Entity entity){
+        Boolean status = Manager.doTransaction((entityManager)->{
+            entityManager.remove(entity);
+            return true;
+        });
+        return  status;
+    }
+    public boolean delete(String columnName, String value){
         Boolean status = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -69,34 +92,11 @@ public class BaseRepo <Entity, ID>{
         });
         return  status;
     }
-    public boolean delete(Entity entity){
-        Boolean status = Manager.doTransaction((entityManager)->{
-            entityManager.remove(entity);
-            return true;
-        });
-        return  status;
-    }
     public boolean update(Entity entity){
         Boolean status = Manager.doTransaction((entityManager)->{
             entityManager.merge(entity);
             return true;
         });
         return  status;
-    }
-    public List<Entity> getByName(String columnName, String value){
-        List<Entity> entity = Manager.doTransaction((entityManager)->{
-            //Definitions
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
-            Root<Entity> root = criteriaQuery.from(entityClass);
-
-            //Queries
-            criteriaQuery.where(criteriaBuilder.equal(root.get(columnName), value)).select(root);
-            List<Entity> result = entityManager.createQuery(criteriaQuery).getResultList();
-
-            return result;
-        });
-
-        return  entity;
     }
 }

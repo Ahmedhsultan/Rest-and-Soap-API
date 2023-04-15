@@ -29,8 +29,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
 
     public FilmActor create(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = filmRepo.getByName("title", filmActorDTOReq.getTitle()).get(0);
-        Actor actor = actorRepo.getByName("firstName", filmActorDTOReq.getFirstName()).get(0);
+        Film film = filmRepo.find("title", filmActorDTOReq.getTitle()).get(0);
+        Actor actor = actorRepo.find("firstName", filmActorDTOReq.getFirstName()).get(0);
 
         FilmActorId filmActorId = new FilmActorId();
         filmActorId.setActorId(actor.getId());
@@ -53,7 +53,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     }
     public List<FilmActorDTOResp> getByFilm(int filmId) throws FileNotFoundException {
         try {
-            Film film = filmRepo.getById(filmId);
+            Film film = filmRepo.find(filmId);
             List<FilmActor> filmActors = filmActorRepo.getByFilm(film);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());
@@ -65,7 +65,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     }
     public List<FilmActorDTOResp> getByActor(int actorId) throws FileNotFoundException {
         try {
-            Actor actor = actorRepo.getById(actorId);
+            Actor actor = actorRepo.find(actorId);
             List<FilmActor> filmActors = filmActorRepo.getByActor(actor);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());

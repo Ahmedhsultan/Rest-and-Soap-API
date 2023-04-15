@@ -26,7 +26,7 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
 
     public Address createAddress(AddressDTOReq addressDTOReq) throws PersistenceException{
         //Fetch city from db
-        City city = cityRepo.getByName("city", addressDTOReq.getCity()).get(0);
+        City city = cityRepo.find("city", addressDTOReq.getCity()).get(0);
 
         //create address
         Address address = modelMapper.map(addressDTOReq, Address.class);
