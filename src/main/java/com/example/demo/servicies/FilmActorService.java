@@ -1,10 +1,8 @@
 package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.*;
-import com.example.demo.repository.repos.ActorRepo;
 import com.example.demo.repository.repos.FilmActorRepo;
-import com.example.demo.repository.repos.FilmRepo;
-import com.example.demo.repository.repos.UnitOfWork;
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.FilmActorDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmActorDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;

@@ -1,5 +1,6 @@
-package com.example.demo.repository.repos;
+package com.example.demo.repository;
 
+import com.example.demo.repository.repos.*;
 import lombok.Data;
 
 @Data

@@ -1,6 +1,6 @@
 package com.example.demo.Listeners;
 
-import com.example.demo.repository.repos.UnitOfWork;
+import com.example.demo.repository.UnitOfWork;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.servlet.ServletContextEvent;
