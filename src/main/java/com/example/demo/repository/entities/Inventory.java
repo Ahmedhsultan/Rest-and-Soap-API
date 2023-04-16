@@ -25,7 +25,7 @@ public class Inventory {
 
     @NotNull
     @Column(name = "last_update", nullable = false)
-    private Instant lastUpdate = Instant.now();
+    private Instant lastUpdate;
 
     public Integer getId() {
         return id;
@@ -56,7 +56,10 @@ public class Inventory {
     }
 
     public void setLastUpdate(Instant lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+    @PreUpdate
+    public void updateLastUpdate() {
         this.lastUpdate = Instant.now();
     }
-
 }

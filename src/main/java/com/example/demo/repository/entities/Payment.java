@@ -37,7 +37,7 @@ public class Payment {
     private Instant paymentDate;
 
     @Column(name = "last_update")
-    private Instant lastUpdate = Instant.now();
+    private Instant lastUpdate;
 
     public Integer getId() {
         return id;
@@ -92,7 +92,10 @@ public class Payment {
     }
 
     public void setLastUpdate(Instant lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+    @PreUpdate
+    public void updateLastUpdate() {
         this.lastUpdate = Instant.now();
     }
-
 }
