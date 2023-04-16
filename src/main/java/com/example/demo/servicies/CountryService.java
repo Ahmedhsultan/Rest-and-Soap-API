@@ -2,6 +2,7 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.Country;
 import com.example.demo.repository.repos.CountryRepo;
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.CountryDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.CountryDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -10,10 +11,8 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class CountryService extends BaseService<Country, CountryDTOResp, CountryRepo, CountryDTOReq>{
-    private CountryRepo countryRepo;
     private ModelMapper modelMapper;
     public CountryService(){
-        this.countryRepo = new CountryRepo();
         this.modelMapper = new ModelMapper();
     }
 
@@ -25,7 +24,7 @@ public class CountryService extends BaseService<Country, CountryDTOResp, Country
 
         //Save this actor
         try {
-            countryRepo.save(country);
+            UnitOfWork.getInstance().getCountryRepo().save(country);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this country!!");
         }

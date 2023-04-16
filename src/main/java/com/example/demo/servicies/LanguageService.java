@@ -2,6 +2,7 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.Language;
 import com.example.demo.repository.repos.LanguageRepo;
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.LanguageDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.LanguageDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -10,10 +11,8 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class LanguageService extends BaseService<Language, LanguageDTOResp, LanguageRepo, LanguageDTOReq>{
-    private LanguageRepo languageRepo;
     private ModelMapper modelMapper;
     public LanguageService(){
-        this.languageRepo = new LanguageRepo();
         this.modelMapper = new ModelMapper();
     }
 
@@ -25,7 +24,7 @@ public class LanguageService extends BaseService<Language, LanguageDTOResp, Lang
 
         //Save this language
         try {
-            languageRepo.save(language);
+            UnitOfWork.getInstance().getLanguageRepo().save(language);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this language!!");
         }
