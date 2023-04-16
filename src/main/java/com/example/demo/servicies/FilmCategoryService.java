@@ -22,8 +22,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
     @Override
     public FilmCategory post(FilmCategoryDTOReq filmCategoryDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = UnitOfWork.filmRepo.find("title", filmCategoryDTOReq.getFilmTitle()).get(0);
-        Category category = UnitOfWork.categoryRepo.find("name", filmCategoryDTOReq.getCategoryName()).get(0);
+        Film film = UnitOfWork.getInstance().getFilmRepo().find("title", filmCategoryDTOReq.getFilmTitle()).get(0);
+        Category category = UnitOfWork.getInstance().getCategoryRepo().find("name", filmCategoryDTOReq.getCategoryName()).get(0);
 
         //Create filmCategory
         FilmCategoryId filmCategoryId = new FilmCategoryId();
@@ -38,7 +38,7 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
 
         //Save this filmCategory
         try {
-            UnitOfWork.filmCategoryRepo.update(filmCategory);
+            UnitOfWork.getInstance().getFilmCategoryRepo().update(filmCategory);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this filmCategory!!");
         }
@@ -48,8 +48,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
 
     public List<FilmCategoryDTOResp> getByFilm(int filmId) throws FileNotFoundException {
         try {
-            Film film = UnitOfWork.filmRepo.find(filmId);
-            List<FilmCategory> filmActors = UnitOfWork.filmCategoryRepo.<Film>find("film",film);
+            Film film = UnitOfWork.getInstance().getFilmRepo().find(filmId);
+            List<FilmCategory> filmActors = UnitOfWork.getInstance().getFilmCategoryRepo().<Film>find("film",film);
             List<FilmCategoryDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmCategoryDTOResp.class))
                     .collect(Collectors.toList());
 
@@ -60,8 +60,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
     }
     public List<FilmCategoryDTOResp> getByCategory(int categoryId) throws FileNotFoundException {
         try {
-            Category category = UnitOfWork.categoryRepo.find(categoryId);
-            List<FilmCategory> filmActors = UnitOfWork.filmCategoryRepo.<Category>find("category", category);
+            Category category = UnitOfWork.getInstance().getCategoryRepo().find(categoryId);
+            List<FilmCategory> filmActors = UnitOfWork.getInstance().getFilmCategoryRepo().<Category>find("category", category);
             List<FilmCategoryDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmCategoryDTOResp.class))
                     .collect(Collectors.toList());
 

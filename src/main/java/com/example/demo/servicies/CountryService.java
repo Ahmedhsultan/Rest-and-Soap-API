@@ -24,7 +24,7 @@ public class CountryService extends BaseService<Country, CountryDTOResp, Country
 
         //Save this actor
         try {
-            UnitOfWork.countryRepo.save(country);
+            UnitOfWork.getInstance().getCountryRepo().save(country);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this country!!");
         }

@@ -22,8 +22,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     @Override
     public FilmActor post(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = UnitOfWork.filmRepo.find("title", filmActorDTOReq.getTitle()).get(0);
-        Actor actor = UnitOfWork.actorRepo.find("firstName", filmActorDTOReq.getFirstName()).get(0);
+        Film film = UnitOfWork.getInstance().getFilmRepo().find("title", filmActorDTOReq.getTitle()).get(0);
+        Actor actor = UnitOfWork.getInstance().getActorRepo().find("firstName", filmActorDTOReq.getFirstName()).get(0);
 
         FilmActorId filmActorId = new FilmActorId();
         filmActorId.setActorId(actor.getId());
@@ -37,7 +37,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
 
         //Save this filmActor
         try {
-            UnitOfWork.filmActorRepo.update(filmActor);
+            UnitOfWork.getInstance().getFilmActorRepo().update(filmActor);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this filmActor!!");
         }
@@ -46,8 +46,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     }
     public List<FilmActorDTOResp> getByFilm(int filmId) throws FileNotFoundException {
         try {
-            Film film = UnitOfWork.filmRepo.find(filmId);
-            List<FilmActor> filmActors = UnitOfWork.filmActorRepo.<Film>find("film",film);
+            Film film = UnitOfWork.getInstance().getFilmRepo().find(filmId);
+            List<FilmActor> filmActors = UnitOfWork.getInstance().getFilmActorRepo().<Film>find("film",film);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());
 
@@ -58,8 +58,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     }
     public List<FilmActorDTOResp> getByActor(int actorId) throws FileNotFoundException {
         try {
-            Actor actor = UnitOfWork.actorRepo.find(actorId);
-            List<FilmActor> filmActors = UnitOfWork.filmActorRepo.<Actor>find("actor",actor);
+            Actor actor = UnitOfWork.getInstance().getActorRepo().find(actorId);
+            List<FilmActor> filmActors = UnitOfWork.getInstance().getFilmActorRepo().<Actor>find("actor",actor);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());
 

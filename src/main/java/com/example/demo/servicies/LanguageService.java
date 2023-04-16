@@ -24,7 +24,7 @@ public class LanguageService extends BaseService<Language, LanguageDTOResp, Lang
 
         //Save this language
         try {
-            UnitOfWork.languageRepo.save(language);
+            UnitOfWork.getInstance().getLanguageRepo().save(language);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this language!!");
         }

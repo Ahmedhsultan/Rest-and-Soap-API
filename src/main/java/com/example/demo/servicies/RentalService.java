@@ -20,9 +20,9 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
     @Override
     public Rental post(RentalDTOReq rentalDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Staff staff = UnitOfWork.staffRepo.find("firstName", rentalDTOReq.getStaffFirstName()).get(0);
-        Inventory inventory = UnitOfWork.inventoryRepo.find(rentalDTOReq.getInventoryId());
-        Customer customer = UnitOfWork.customerRepo.find("firstName", rentalDTOReq.getCustomerFirstName()).get(0);
+        Staff staff = UnitOfWork.getInstance().getStaffRepo().find("firstName", rentalDTOReq.getStaffFirstName()).get(0);
+        Inventory inventory = UnitOfWork.getInstance().getInventoryRepo().find(rentalDTOReq.getInventoryId());
+        Customer customer = UnitOfWork.getInstance().getCustomerRepo().find("firstName", rentalDTOReq.getCustomerFirstName()).get(0);
 
         //Create rental
         Rental rental = new Rental();
@@ -35,7 +35,7 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
 
         //Save this rental
         try {
-            UnitOfWork.rentalRepo.save(rental);
+            UnitOfWork.getInstance().getRentalRepo().save(rental);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this rental!!");
         }

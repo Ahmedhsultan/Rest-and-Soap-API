@@ -21,8 +21,8 @@ public class InventoryService extends BaseService<Inventory, InventoryDTOResp, I
     @Override
     public Inventory post(InventoryDTOReq inventoryDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Film file = UnitOfWork.filmRepo.find("title", inventoryDTOReq.getFilmTitle()).get(0);
-        Store store = UnitOfWork.storeRepo.find(inventoryDTOReq.getStoreId());
+        Film file = UnitOfWork.getInstance().getFilmRepo().find("title", inventoryDTOReq.getFilmTitle()).get(0);
+        Store store = UnitOfWork.getInstance().getStoreRepo().find(inventoryDTOReq.getStoreId());
 
         //Create Inventory
         Inventory inventory = new Inventory();
@@ -32,7 +32,7 @@ public class InventoryService extends BaseService<Inventory, InventoryDTOResp, I
 
         //Save this inventory
         try {
-            UnitOfWork.inventoryRepo.save(inventory);
+            UnitOfWork.getInstance().getInventoryRepo().save(inventory);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this inventory!!");
         }

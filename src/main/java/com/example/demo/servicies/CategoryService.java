@@ -24,7 +24,7 @@ public class CategoryService extends BaseService<Category, CategoryDTOResp, Cate
 
         //Save this city
         try {
-            UnitOfWork.categoryRepo.save(category);
+            UnitOfWork.getInstance().getCategoryRepo().save(category);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this city!!");
         }

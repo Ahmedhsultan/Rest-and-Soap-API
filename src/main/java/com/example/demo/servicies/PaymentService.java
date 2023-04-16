@@ -19,9 +19,9 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
     @Override
     public Payment post(PaymentDTOReq paymentDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Staff staff = UnitOfWork.staffRepo.find("firstName", paymentDTOReq.getStaffFirstName()).get(0);
-        Rental rental = UnitOfWork.rentalRepo.find(paymentDTOReq.getRentalId());
-        Customer customer = UnitOfWork.customerRepo.find("firstName", paymentDTOReq.getCustomerFirstName()).get(0);
+        Staff staff = UnitOfWork.getInstance().getStaffRepo().find("firstName", paymentDTOReq.getStaffFirstName()).get(0);
+        Rental rental = UnitOfWork.getInstance().getRentalRepo().find(paymentDTOReq.getRentalId());
+        Customer customer = UnitOfWork.getInstance().getCustomerRepo().find("firstName", paymentDTOReq.getCustomerFirstName()).get(0);
 
         //Create payment
         Payment payment = new Payment();
@@ -34,7 +34,7 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
 
         //Save this payment
         try {
-            UnitOfWork.paymentRepo.save(payment);
+            UnitOfWork.getInstance().getPaymentRepo().save(payment);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this payment!!");
         }

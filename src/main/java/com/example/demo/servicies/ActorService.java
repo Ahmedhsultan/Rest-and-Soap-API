@@ -25,7 +25,7 @@ public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo, Ac
 
         //Save this actor
         try {
-            UnitOfWork.actorRepo.save(actor);
+            UnitOfWork.getInstance().getActorRepo().save(actor);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this actor!!");
         }

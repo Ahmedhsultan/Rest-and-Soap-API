@@ -12,7 +12,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         //Create UniteOfWork
-        UnitOfWork.create();
+        UnitOfWork.getInstance();
 
         //Create EntityManagerFactory from persisteance unit
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");

@@ -21,7 +21,7 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
     @Override
     public Address post(AddressDTOReq addressDTOReq) throws PersistenceException{
         //Fetch city from db
-        City city = UnitOfWork.cityRepo.find("city", addressDTOReq.getCity()).get(0);
+        City city = UnitOfWork.getInstance().getCityRepo().find("city", addressDTOReq.getCity()).get(0);
 
         //create address
         Address address = modelMapper.map(addressDTOReq, Address.class);
@@ -30,7 +30,7 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
 
         //Save this address
         try {
-            UnitOfWork.addressRepo.save(address);
+            UnitOfWork.getInstance().getAddressRepo().save(address);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this address!!");
         }
