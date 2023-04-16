@@ -13,7 +13,6 @@ public class CategoryService extends BaseService<Category, CategoryDTOResp, Cate
     private CategoryRepo categoryRepo;
     private ModelMapper modelMapper;
     public CategoryService(){
-        super(new CategoryRepo());
         this.categoryRepo = new CategoryRepo();
         this.modelMapper = new ModelMapper();
     }

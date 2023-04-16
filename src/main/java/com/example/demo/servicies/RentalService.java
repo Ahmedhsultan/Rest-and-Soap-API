@@ -17,7 +17,6 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
     private InventoryRepo inventoryRepo;
     private ModelMapper modelMapper;
     public RentalService(){
-        super(new RentalRepo());
         this.customerRepo = new CustomerRepo();
         this.staffRepo = new StaffRepo();
         this.rentalRepo = new RentalRepo();

@@ -16,7 +16,6 @@ public class CityService extends BaseService<City, CityDTOResp, CityRepo>{
     private CountryRepo countryRepo;
     private ModelMapper modelMapper;
     public CityService(){
-        super(new CityRepo());
         this.countryRepo = new CountryRepo();
         this.cityRepo = new CityRepo();
         this.modelMapper = new ModelMapper();

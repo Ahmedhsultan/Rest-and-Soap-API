@@ -20,7 +20,6 @@ public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo>{
     private ModelMapper modelMapper;
 
     public StoreService(){
-        super(new StoreRepo());
         //Create objects from repositories
         this.modelMapper = new ModelMapper();
         this.staffRepo = new StaffRepo();

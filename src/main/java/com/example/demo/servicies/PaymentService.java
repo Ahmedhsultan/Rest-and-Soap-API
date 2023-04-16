@@ -16,7 +16,6 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
     private PaymentRepo paymentRepo;
     private ModelMapper modelMapper;
     public PaymentService(){
-        super(new PaymentRepo());
         this.customerRepo = new CustomerRepo();
         this.staffRepo = new StaffRepo();
         this.rentalRepo = new RentalRepo();

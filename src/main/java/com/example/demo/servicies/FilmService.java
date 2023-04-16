@@ -16,7 +16,6 @@ public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo>{
     private FilmRepo filmRepo;
     private ModelMapper modelMapper;
     public FilmService(){
-        super(new FilmRepo());
         this.filmRepo = new FilmRepo();
         this.languageRepo = new LanguageRepo();
         this.modelMapper = new ModelMapper();

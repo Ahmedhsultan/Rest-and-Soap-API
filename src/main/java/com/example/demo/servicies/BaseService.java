@@ -15,7 +15,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
     private Class<DTOResp> dtoClass;
     private Class<Entity> entityClass;
     private ModelMapper modelMapper;
-    public BaseService(Repo repo){
+    public BaseService(){
         this.repo = repo;
         this.modelMapper = new ModelMapper();
 
@@ -24,6 +24,10 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
         Type[] typeArguments = genericSuperclass.getActualTypeArguments();
         this.entityClass = (Class<Entity>) typeArguments[0];
         this.dtoClass = (Class<DTOResp>) typeArguments[1];
+        //Create instance from service by reflection
+        try {
+            this.repo = ((Class<Repo>) typeArguments[2]).newInstance();
+        }catch (Exception e){e.printStackTrace();}
     }
 
     public List<DTOResp> get (String columnName, String value) throws FileNotFoundException{

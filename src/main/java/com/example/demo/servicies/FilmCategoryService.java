@@ -19,7 +19,6 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
     private FilmCategoryRepo filmCategoryRepo;
     private ModelMapper modelMapper;
     public FilmCategoryService(){
-        super(new FilmCategoryRepo());
         this.filmCategoryRepo = new FilmCategoryRepo();
         this.filmRepo = new FilmRepo();
         this.categoryRepo = new CategoryRepo();

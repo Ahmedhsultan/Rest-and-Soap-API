@@ -21,7 +21,6 @@ public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo>{
     private ModelMapper modelMapper;
 
     public StaffService(){
-        super(new StaffRepo());
         //Create objects from repositories
         this.modelMapper = new ModelMapper();
         this.staffRepo = new StaffRepo();
