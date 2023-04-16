@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.City;
 import com.example.demo.repository.repos.AddressRepo;
 import com.example.demo.repository.repos.CityRepo;
+import com.example.demo.repository.repos.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.AddressDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.AddressDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -13,20 +14,15 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class AddressService extends BaseService<Address, AddressDTOResp, AddressRepo, AddressDTOReq>{
-
-    private AddressRepo addressRepo;
-    private CityRepo cityRepo;
     private ModelMapper modelMapper;
     public AddressService(){
-        this.cityRepo = new CityRepo();
-        this.addressRepo = new AddressRepo();
         this.modelMapper = new ModelMapper();
     }
 
     @Override
     public Address post(AddressDTOReq addressDTOReq) throws PersistenceException{
         //Fetch city from db
-        City city = cityRepo.find("city", addressDTOReq.getCity()).get(0);
+        City city = UnitOfWork.cityRepo.find("city", addressDTOReq.getCity()).get(0);
 
         //create address
         Address address = modelMapper.map(addressDTOReq, Address.class);
@@ -35,7 +31,7 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
 
         //Save this address
         try {
-            addressRepo.save(address);
+            UnitOfWork.addressRepo.save(address);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this address!!");
         }

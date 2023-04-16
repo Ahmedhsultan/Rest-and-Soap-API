@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.ActorRepo;
 import com.example.demo.repository.repos.FilmActorRepo;
 import com.example.demo.repository.repos.FilmRepo;
+import com.example.demo.repository.repos.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.FilmActorDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmActorDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
@@ -15,22 +16,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, FilmActorRepo, FilmActorDTOReq>{
-    private ActorRepo actorRepo;
-    private FilmRepo filmRepo;
-    private FilmActorRepo filmActorRepo;
     private ModelMapper modelMapper;
     public FilmActorService(){
-        this.filmActorRepo = new FilmActorRepo();
-        this.filmRepo = new FilmRepo();
-        this.actorRepo = new ActorRepo();
         this.modelMapper = new ModelMapper();
     }
 
     @Override
     public FilmActor post(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = filmRepo.find("title", filmActorDTOReq.getTitle()).get(0);
-        Actor actor = actorRepo.find("firstName", filmActorDTOReq.getFirstName()).get(0);
+        Film film = UnitOfWork.filmRepo.find("title", filmActorDTOReq.getTitle()).get(0);
+        Actor actor = UnitOfWork.actorRepo.find("firstName", filmActorDTOReq.getFirstName()).get(0);
 
         FilmActorId filmActorId = new FilmActorId();
         filmActorId.setActorId(actor.getId());
@@ -44,7 +39,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
 
         //Save this filmActor
         try {
-            filmActorRepo.update(filmActor);
+            UnitOfWork.filmActorRepo.update(filmActor);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this filmActor!!");
         }
@@ -53,8 +48,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     }
     public List<FilmActorDTOResp> getByFilm(int filmId) throws FileNotFoundException {
         try {
-            Film film = filmRepo.find(filmId);
-            List<FilmActor> filmActors = filmActorRepo.<Film>find("film",film);
+            Film film = UnitOfWork.filmRepo.find(filmId);
+            List<FilmActor> filmActors = UnitOfWork.filmActorRepo.<Film>find("film",film);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());
 
@@ -65,8 +60,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     }
     public List<FilmActorDTOResp> getByActor(int actorId) throws FileNotFoundException {
         try {
-            Actor actor = actorRepo.find(actorId);
-            List<FilmActor> filmActors = filmActorRepo.<Actor>find("actor",actor);
+            Actor actor = UnitOfWork.actorRepo.find(actorId);
+            List<FilmActor> filmActors = UnitOfWork.filmActorRepo.<Actor>find("actor",actor);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
                     .collect(Collectors.toList());
 

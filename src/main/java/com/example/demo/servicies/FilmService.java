@@ -4,6 +4,7 @@ import com.example.demo.repository.entities.Film;
 import com.example.demo.repository.entities.Language;
 import com.example.demo.repository.repos.FilmRepo;
 import com.example.demo.repository.repos.LanguageRepo;
+import com.example.demo.repository.repos.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.FilmDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -12,20 +13,16 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo, FilmDTOReq>{
-    private LanguageRepo languageRepo;
-    private FilmRepo filmRepo;
     private ModelMapper modelMapper;
     public FilmService(){
-        this.filmRepo = new FilmRepo();
-        this.languageRepo = new LanguageRepo();
         this.modelMapper = new ModelMapper();
     }
 
     @Override
     public Film post(FilmDTOReq filmDTOReq) throws PersistenceException {
         //Fetch language from db
-        Language language = languageRepo.find("name", filmDTOReq.getLanguage()).get(0);
-        Language OriginalLanguage = languageRepo.find("name", filmDTOReq.getOriginalLanguage()).get(0);
+        Language language = UnitOfWork.languageRepo.find("name", filmDTOReq.getLanguage()).get(0);
+        Language OriginalLanguage = UnitOfWork.languageRepo.find("name", filmDTOReq.getOriginalLanguage()).get(0);
 
         Film film = modelMapper.map(filmDTOReq, Film.class);
         film.setLanguage(language);
@@ -34,7 +31,7 @@ public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo, FilmDT
 
         //Save this film
         try {
-            filmRepo.save(film);
+            UnitOfWork.filmRepo.save(film);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this film!!");
         }

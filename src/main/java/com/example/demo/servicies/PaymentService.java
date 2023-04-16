@@ -10,25 +10,17 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class PaymentService extends BaseService<Payment, PaymentDTOResp, PaymentRepo, PaymentDTOReq>{
-    private CustomerRepo customerRepo;
-    private StaffRepo staffRepo;
-    private RentalRepo rentalRepo;
-    private PaymentRepo paymentRepo;
     private ModelMapper modelMapper;
     public PaymentService(){
-        this.customerRepo = new CustomerRepo();
-        this.staffRepo = new StaffRepo();
-        this.rentalRepo = new RentalRepo();
-        this.paymentRepo = new PaymentRepo();
         this.modelMapper = new ModelMapper();
     }
 
     @Override
     public Payment post(PaymentDTOReq paymentDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Staff staff = staffRepo.find("firstName", paymentDTOReq.getStaffFirstName()).get(0);
-        Rental rental = rentalRepo.find(paymentDTOReq.getRentalId());
-        Customer customer = customerRepo.find("firstName", paymentDTOReq.getCustomerFirstName()).get(0);
+        Staff staff = UnitOfWork.staffRepo.find("firstName", paymentDTOReq.getStaffFirstName()).get(0);
+        Rental rental = UnitOfWork.rentalRepo.find(paymentDTOReq.getRentalId());
+        Customer customer = UnitOfWork.customerRepo.find("firstName", paymentDTOReq.getCustomerFirstName()).get(0);
 
         //Create payment
         Payment payment = new Payment();
@@ -41,7 +33,7 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
 
         //Save this payment
         try {
-            paymentRepo.save(payment);
+            UnitOfWork.paymentRepo.save(payment);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this payment!!");
         }
