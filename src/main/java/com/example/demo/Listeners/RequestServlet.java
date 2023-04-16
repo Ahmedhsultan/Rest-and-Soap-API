@@ -14,13 +14,11 @@ public class RequestServlet implements ServletRequestListener {
         EntityManagerFactory entityManagerFactory = (EntityManagerFactory)sre.getServletContext().getAttribute("EntityManagerFactory");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         MyThreadLocal.local.set(entityManager);
-//        sre.getServletRequest().setAttribute("EntityManager",entityManager);
     }
 
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
         EntityManager entityManager = MyThreadLocal.local.get();
-//        EntityManager entityManager = (EntityManager) sre.getServletRequest().getAttribute("EntityManager");
         entityManager.close();
     }
 }
