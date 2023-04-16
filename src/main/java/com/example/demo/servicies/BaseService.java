@@ -16,7 +16,6 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
     private Class<Entity> entityClass;
     private ModelMapper modelMapper;
     public BaseService(){
-        this.repo = repo;
         this.modelMapper = new ModelMapper();
 
         //Get class type of generics by reflections
