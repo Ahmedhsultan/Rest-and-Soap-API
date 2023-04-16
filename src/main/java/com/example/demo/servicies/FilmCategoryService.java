@@ -1,9 +1,9 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.*;
 import com.example.demo.webservices.rest.DTOs.requests.FilmCategoryDTOReq;
-import com.example.demo.webservices.rest.DTOs.resources.FilmActorDTOResp;
 import com.example.demo.webservices.rest.DTOs.resources.FilmCategoryDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -14,22 +14,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryDTOResp, FilmCategoryRepo, FilmCategoryDTOReq>{
-    private CategoryRepo categoryRepo;
-    private FilmRepo filmRepo;
-    private FilmCategoryRepo filmCategoryRepo;
     private ModelMapper modelMapper;
     public FilmCategoryService(){
-        this.filmCategoryRepo = new FilmCategoryRepo();
-        this.filmRepo = new FilmRepo();
-        this.categoryRepo = new CategoryRepo();
         this.modelMapper = new ModelMapper();
     }
 
     @Override
     public FilmCategory post(FilmCategoryDTOReq filmCategoryDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = filmRepo.find("title", filmCategoryDTOReq.getFilmTitle()).get(0);
-        Category category = categoryRepo.find("name", filmCategoryDTOReq.getCategoryName()).get(0);
+        Film film = UnitOfWork.getInstance().getFilmRepo().find("title", filmCategoryDTOReq.getFilmTitle()).get(0);
+        Category category = UnitOfWork.getInstance().getCategoryRepo().find("name", filmCategoryDTOReq.getCategoryName()).get(0);
 
         //Create filmCategory
         FilmCategoryId filmCategoryId = new FilmCategoryId();
@@ -44,7 +38,7 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
 
         //Save this filmCategory
         try {
-            filmCategoryRepo.update(filmCategory);
+            UnitOfWork.getInstance().getFilmCategoryRepo().update(filmCategory);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this filmCategory!!");
         }
@@ -54,8 +48,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
 
     public List<FilmCategoryDTOResp> getByFilm(int filmId) throws FileNotFoundException {
         try {
-            Film film = filmRepo.find(filmId);
-            List<FilmCategory> filmActors = filmCategoryRepo.<Film>find("film",film);
+            Film film = UnitOfWork.getInstance().getFilmRepo().find(filmId);
+            List<FilmCategory> filmActors = UnitOfWork.getInstance().getFilmCategoryRepo().<Film>find("film",film);
             List<FilmCategoryDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmCategoryDTOResp.class))
                     .collect(Collectors.toList());
 
@@ -66,8 +60,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
     }
     public List<FilmCategoryDTOResp> getByCategory(int categoryId) throws FileNotFoundException {
         try {
-            Category category = categoryRepo.find(categoryId);
-            List<FilmCategory> filmActors = filmCategoryRepo.<Category>find("category", category);
+            Category category = UnitOfWork.getInstance().getCategoryRepo().find(categoryId);
+            List<FilmCategory> filmActors = UnitOfWork.getInstance().getFilmCategoryRepo().<Category>find("category", category);
             List<FilmCategoryDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmCategoryDTOResp.class))
                     .collect(Collectors.toList());
 

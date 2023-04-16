@@ -2,6 +2,7 @@ package com.example.demo.servicies;
 
 import com.example.demo.repository.entities.Actor;
 import com.example.demo.repository.repos.ActorRepo;
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.ActorDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.ActorDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -10,13 +11,10 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo, ActorDTOReq>{
-    private ActorRepo actorRepo;
     private ModelMapper modelMapper;
 
     public ActorService(){
-        //Create objects from repositories
         this.modelMapper = new ModelMapper();
-        this.actorRepo = new ActorRepo();
     }
 
     @Override
@@ -27,7 +25,7 @@ public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo, Ac
 
         //Save this actor
         try {
-            actorRepo.save(actor);
+            UnitOfWork.getInstance().getActorRepo().save(actor);
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't save this actor!!");
         }
