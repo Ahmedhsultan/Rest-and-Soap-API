@@ -57,7 +57,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
 
             return rowCount;
         }catch (PersistenceException persistenceException){
-            throw new FileNotFoundException("Can't count table!!");
+            throw new OperationFaildException("Can't count table!!");
         }
     }
     public Boolean delete (String columnName, String value) throws OperationFaildException{
