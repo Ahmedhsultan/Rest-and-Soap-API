@@ -13,7 +13,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryDTOResp, FilmCategoryRepo>{
+public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryDTOResp, FilmCategoryRepo, FilmCategoryDTOReq>{
     private CategoryRepo categoryRepo;
     private FilmRepo filmRepo;
     private FilmCategoryRepo filmCategoryRepo;
@@ -25,7 +25,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
         this.modelMapper = new ModelMapper();
     }
 
-    public FilmCategory create(FilmCategoryDTOReq filmCategoryDTOReq) throws PersistenceException {
+    @Override
+    public FilmCategory post(FilmCategoryDTOReq filmCategoryDTOReq) throws PersistenceException {
         //Fetch language from db
         Film film = filmRepo.find("title", filmCategoryDTOReq.getFilmTitle()).get(0);
         Category category = categoryRepo.find("name", filmCategoryDTOReq.getCategoryName()).get(0);

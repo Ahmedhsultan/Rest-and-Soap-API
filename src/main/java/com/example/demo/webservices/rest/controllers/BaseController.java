@@ -7,7 +7,7 @@ import jakarta.ws.rs.core.Response;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public class BaseController <DTOResp,Service extends BaseService>{
+public class BaseController <DTOResp,Service extends BaseService, DTOReq>{
     private Service service;
     protected BaseController() throws InstantiationException, IllegalAccessException {
         //Create new instance from service by reflection
@@ -15,6 +15,13 @@ public class BaseController <DTOResp,Service extends BaseService>{
         Type[] typeArguments = genericSuperclass.getActualTypeArguments();
         Class<Service> serviceClass = (Class<Service>) typeArguments[1];
         this.service = serviceClass.newInstance();
+    }
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(DTOReq dtoReq){
+        service.post(dtoReq);
+
+        return Response.ok().build();
     }
     @GET
     @Consumes(MediaType.TEXT_PLAIN)

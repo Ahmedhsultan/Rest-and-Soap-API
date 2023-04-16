@@ -12,7 +12,7 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class AddressService extends BaseService<Address, AddressDTOResp, AddressRepo>{
+public class AddressService extends BaseService<Address, AddressDTOResp, AddressRepo, AddressDTOReq>{
 
     private AddressRepo addressRepo;
     private CityRepo cityRepo;
@@ -23,7 +23,8 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
         this.modelMapper = new ModelMapper();
     }
 
-    public Address createAddress(AddressDTOReq addressDTOReq) throws PersistenceException{
+    @Override
+    public Address post(AddressDTOReq addressDTOReq) throws PersistenceException{
         //Fetch city from db
         City city = cityRepo.find("city", addressDTOReq.getCity()).get(0);
 

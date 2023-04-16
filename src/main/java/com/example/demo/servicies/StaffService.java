@@ -14,7 +14,7 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo>{
+public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo, StaffDTOReq>{
     private StaffRepo staffRepo;
     private AddressRepo addressRepo;
     private StoreRepo storeRepo;
@@ -28,7 +28,8 @@ public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo>{
         this.addressRepo = new AddressRepo();
     }
 
-    public Staff create(StaffDTOReq staffDTOReq) throws PersistenceException {
+    @Override
+    public Staff post(StaffDTOReq staffDTOReq) throws PersistenceException {
         //Fetch Address and store from db
         Address address = addressRepo.find("address", staffDTOReq.getAddress()).get(0);
         Store store = storeRepo.find(staffDTOReq.getStoreId());

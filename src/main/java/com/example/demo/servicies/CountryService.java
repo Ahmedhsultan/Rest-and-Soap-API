@@ -9,7 +9,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CountryService extends BaseService<Country, CountryDTOResp, CountryRepo>{
+public class CountryService extends BaseService<Country, CountryDTOResp, CountryRepo, CountryDTOReq>{
     private CountryRepo countryRepo;
     private ModelMapper modelMapper;
     public CountryService(){
@@ -17,7 +17,8 @@ public class CountryService extends BaseService<Country, CountryDTOResp, Country
         this.modelMapper = new ModelMapper();
     }
 
-    public Country createCountry(CountryDTOReq countryDTOReq) throws PersistenceException {
+    @Override
+    public Country post(CountryDTOReq countryDTOReq) throws PersistenceException {
 
         Country country = modelMapper.map(countryDTOReq, Country.class);
         country.setLastUpdate(Instant.now());

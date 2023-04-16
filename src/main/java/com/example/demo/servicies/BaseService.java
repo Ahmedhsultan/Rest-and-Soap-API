@@ -1,6 +1,8 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.entities.Category;
 import com.example.demo.repository.repos.BaseRepo;
+import com.example.demo.webservices.rest.DTOs.requests.CategoryDTOReq;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
@@ -10,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
+public abstract class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOReq>{
     private Repo repo;
     private Class<DTOResp> dtoClass;
     private Class<Entity> entityClass;
@@ -28,6 +30,8 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>>{
             this.repo = ((Class<Repo>) typeArguments[2]).newInstance();
         }catch (Exception e){e.printStackTrace();}
     }
+
+    public abstract Entity post(DTOReq dtoReq) throws PersistenceException;
 
     public List<DTOResp> get (String columnName, String value) throws FileNotFoundException{
         try {

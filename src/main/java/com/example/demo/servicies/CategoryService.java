@@ -9,7 +9,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CategoryService extends BaseService<Category, CategoryDTOResp, CategoryRepo>{
+public class CategoryService extends BaseService<Category, CategoryDTOResp, CategoryRepo, CategoryDTOReq>{
     private CategoryRepo categoryRepo;
     private ModelMapper modelMapper;
     public CategoryService(){
@@ -17,7 +17,8 @@ public class CategoryService extends BaseService<Category, CategoryDTOResp, Cate
         this.modelMapper = new ModelMapper();
     }
 
-    public Category createCategory(CategoryDTOReq categoryDTOReq) throws PersistenceException {
+    @Override
+    public Category post(CategoryDTOReq categoryDTOReq) throws PersistenceException {
 
         Category category = modelMapper.map(categoryDTOReq, Category.class);
         category.setLastUpdate(Instant.now());

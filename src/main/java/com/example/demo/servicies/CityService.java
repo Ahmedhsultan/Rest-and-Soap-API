@@ -11,7 +11,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CityService extends BaseService<City, CityDTOResp, CityRepo>{
+public class CityService extends BaseService<City, CityDTOResp, CityRepo, CityDTOReq>{
     private CityRepo cityRepo;
     private CountryRepo countryRepo;
     private ModelMapper modelMapper;
@@ -21,7 +21,8 @@ public class CityService extends BaseService<City, CityDTOResp, CityRepo>{
         this.modelMapper = new ModelMapper();
     }
 
-    public City createCity(CityDTOReq cityDTOReq) throws PersistenceException {
+    @Override
+    public City post(CityDTOReq cityDTOReq) throws PersistenceException {
 
         Country country = countryRepo.find("country", cityDTOReq.getCountry()).get(0);
 

@@ -9,7 +9,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class LanguageService extends BaseService<Language, LanguageDTOResp, LanguageRepo>{
+public class LanguageService extends BaseService<Language, LanguageDTOResp, LanguageRepo, LanguageDTOReq>{
     private LanguageRepo languageRepo;
     private ModelMapper modelMapper;
     public LanguageService(){
@@ -17,7 +17,8 @@ public class LanguageService extends BaseService<Language, LanguageDTOResp, Lang
         this.modelMapper = new ModelMapper();
     }
 
-    public Language create(LanguageDTOReq languageDTOReq) throws PersistenceException {
+    @Override
+    public Language post(LanguageDTOReq languageDTOReq) throws PersistenceException {
         //Create Language
         Language language = modelMapper.map(languageDTOReq, Language.class);
         language.setLastUpdate(Instant.now());

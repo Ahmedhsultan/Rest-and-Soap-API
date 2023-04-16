@@ -10,6 +10,6 @@ public class ActorWS {
     public void create(ActorDTOReq actorDTOReq) throws SoapException {
         //Create actor by service
         ActorService actorService = new ActorService();
-        actorService.create(actorDTOReq);
+        actorService.post(actorDTOReq);
     }
 }

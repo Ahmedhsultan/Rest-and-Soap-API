@@ -13,7 +13,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo>{
+public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo, StoreDTOReq>{
     private StaffRepo staffRepo;
     private StoreRepo storeRepo;
     private AddressRepo addressRepo;
@@ -27,7 +27,8 @@ public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo>{
         this.storeRepo = new StoreRepo();
     }
 
-    public Store create(StoreDTOReq storeDTOReq) throws PersistenceException {
+    @Override
+    public Store post(StoreDTOReq storeDTOReq) throws PersistenceException {
         //Fetch Address and staffManger from db
         Staff staffManger = staffRepo.find("firstName", storeDTOReq.getManagerStaffFirstName()).get(0);
         Address address = addressRepo.find("address", storeDTOReq.getAddress()).get(0);

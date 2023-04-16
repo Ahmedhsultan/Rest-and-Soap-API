@@ -11,16 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("store")
-public class StoreController extends BaseController<StoreDTOResp, StoreService>{
+public class StoreController extends BaseController<StoreDTOResp, StoreService, StoreDTOReq>{
     public StoreController() throws InstantiationException, IllegalAccessException {
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(StoreDTOReq storeDTOReq){
-        StoreService storeService = new StoreService();
-        storeService.create(storeDTOReq);
-
-        return Response.ok().build();
     }
 }

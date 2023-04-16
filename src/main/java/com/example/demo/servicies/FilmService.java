@@ -11,7 +11,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo>{
+public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo, FilmDTOReq>{
     private LanguageRepo languageRepo;
     private FilmRepo filmRepo;
     private ModelMapper modelMapper;
@@ -21,7 +21,8 @@ public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo>{
         this.modelMapper = new ModelMapper();
     }
 
-    public Film create(FilmDTOReq filmDTOReq) throws PersistenceException {
+    @Override
+    public Film post(FilmDTOReq filmDTOReq) throws PersistenceException {
         //Fetch language from db
         Language language = languageRepo.find("name", filmDTOReq.getLanguage()).get(0);
         Language OriginalLanguage = languageRepo.find("name", filmDTOReq.getOriginalLanguage()).get(0);

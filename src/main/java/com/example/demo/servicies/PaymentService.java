@@ -9,7 +9,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class PaymentService extends BaseService<Payment, PaymentDTOResp, PaymentRepo>{
+public class PaymentService extends BaseService<Payment, PaymentDTOResp, PaymentRepo, PaymentDTOReq>{
     private CustomerRepo customerRepo;
     private StaffRepo staffRepo;
     private RentalRepo rentalRepo;
@@ -23,7 +23,8 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
         this.modelMapper = new ModelMapper();
     }
 
-    public Payment create(PaymentDTOReq paymentDTOReq) throws PersistenceException {
+    @Override
+    public Payment post(PaymentDTOReq paymentDTOReq) throws PersistenceException {
         //Fetch film and store from db
         Staff staff = staffRepo.find("firstName", paymentDTOReq.getStaffFirstName()).get(0);
         Rental rental = rentalRepo.find(paymentDTOReq.getRentalId());

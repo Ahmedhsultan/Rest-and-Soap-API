@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, FilmActorRepo>{
+public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, FilmActorRepo, FilmActorDTOReq>{
     private ActorRepo actorRepo;
     private FilmRepo filmRepo;
     private FilmActorRepo filmActorRepo;
@@ -26,7 +26,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
         this.modelMapper = new ModelMapper();
     }
 
-    public FilmActor create(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
+    @Override
+    public FilmActor post(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
         Film film = filmRepo.find("title", filmActorDTOReq.getTitle()).get(0);
         Actor actor = actorRepo.find("firstName", filmActorDTOReq.getFirstName()).get(0);

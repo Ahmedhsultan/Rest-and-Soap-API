@@ -13,7 +13,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class InventoryService extends BaseService<Inventory, InventoryDTOResp, InventoryRepo>{
+public class InventoryService extends BaseService<Inventory, InventoryDTOResp, InventoryRepo, InventoryDTOReq>{
     private StoreRepo storeRepo;
     private FilmRepo filmRepo;
     private InventoryRepo inventoryRepo;
@@ -25,7 +25,8 @@ public class InventoryService extends BaseService<Inventory, InventoryDTOResp, I
         this.modelMapper = new ModelMapper();
     }
 
-    public Inventory create(InventoryDTOReq inventoryDTOReq) throws PersistenceException {
+    @Override
+    public Inventory post(InventoryDTOReq inventoryDTOReq) throws PersistenceException {
         //Fetch film and store from db
         Film file = filmRepo.find("title", inventoryDTOReq.getFilmTitle()).get(0);
         Store store = storeRepo.find(inventoryDTOReq.getStoreId());

@@ -13,7 +13,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class CustomerService extends BaseService<Customer, CustomerDTOResp, CustomerRepo>{
+public class CustomerService extends BaseService<Customer, CustomerDTOResp, CustomerRepo, CustomerDTOReq>{
     private CustomerRepo customerRepo;
     private StoreRepo storeRepo;
     private AddressRepo addressRepo;
@@ -25,7 +25,8 @@ public class CustomerService extends BaseService<Customer, CustomerDTOResp, Cust
         this.modelMapper = new ModelMapper();
     }
 
-    public Customer create(CustomerDTOReq customerDTOReq) throws PersistenceException {
+    @Override
+    public Customer post(CustomerDTOReq customerDTOReq) throws PersistenceException {
         //Fetch store and address from database
         Store store = storeRepo.find(customerDTOReq.getStore_ID());
         Address address = addressRepo.find("address", customerDTOReq.getAddress()).get(0);

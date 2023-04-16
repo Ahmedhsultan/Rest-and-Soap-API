@@ -9,7 +9,7 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
-public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo>{
+public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo, ActorDTOReq>{
     private ActorRepo actorRepo;
     private ModelMapper modelMapper;
 
@@ -19,7 +19,8 @@ public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo>{
         this.actorRepo = new ActorRepo();
     }
 
-    public Actor create(ActorDTOReq actorDTOReq) throws PersistenceException{
+    @Override
+    public Actor post(ActorDTOReq actorDTOReq) throws PersistenceException{
         //Create object of actor
         Actor actor = modelMapper.map(actorDTOReq, Actor.class);
         actor.setLastUpdate(Instant.now());

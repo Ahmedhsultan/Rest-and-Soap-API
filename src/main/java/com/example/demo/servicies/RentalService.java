@@ -10,7 +10,7 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo>{
+public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo, RentalDTOReq>{
     private CustomerRepo customerRepo;
     private StaffRepo staffRepo;
     private RentalRepo rentalRepo;
@@ -24,7 +24,8 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
         this.modelMapper = new ModelMapper();
     }
 
-    public Rental create(RentalDTOReq rentalDTOReq) throws PersistenceException {
+    @Override
+    public Rental post(RentalDTOReq rentalDTOReq) throws PersistenceException {
         //Fetch film and store from db
         Staff staff = staffRepo.find("firstName", rentalDTOReq.getStaffFirstName()).get(0);
         Inventory inventory = inventoryRepo.find(rentalDTOReq.getInventoryId());
