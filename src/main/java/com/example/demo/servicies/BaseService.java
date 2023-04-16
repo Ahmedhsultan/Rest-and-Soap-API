@@ -1,8 +1,6 @@
 package com.example.demo.servicies;
 
-import com.example.demo.repository.entities.Category;
 import com.example.demo.repository.repos.BaseRepo;
-import com.example.demo.webservices.rest.DTOs.requests.CategoryDTOReq;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
@@ -27,7 +25,7 @@ public abstract class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity
         this.dtoClass = (Class<DTOResp>) typeArguments[1];
         //Create instance from service by reflection
         try {
-            this.repo = ((Class<Repo>) typeArguments[2]).newInstance();
+            this.repo = ((Class<Repo>) typeArguments[2]).getDeclaredConstructor().newInstance();
         }catch (Exception e){e.printStackTrace();}
     }
 
