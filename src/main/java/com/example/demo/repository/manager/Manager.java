@@ -11,7 +11,7 @@ public class Manager {
     private Manager(){}
 
     public static <R> R doTransaction (Function<EntityManager,R> function){
-        EntityManager entityManager = MyThreadLocal.local.get();
+        EntityManager entityManager = MyThreadLocal.MY_THREAD_LOCAL.getLocal();
         try {
             entityManager.getTransaction().begin();
             R theReturn = function.apply(entityManager);
