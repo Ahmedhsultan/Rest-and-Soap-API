@@ -26,8 +26,10 @@ public class BaseController <DTOResp,Service extends BaseService, DTOReq>{
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     public Response get(@QueryParam("column") String columnName,
-                        @QueryParam("value") String value) {
-        var actorDTOResp = service.get(columnName, value);
+                        @QueryParam("value") String value,
+                        @DefaultValue(value = "0")@QueryParam("pageNumber") Integer pageNumber,
+                        @DefaultValue(value = "10")@QueryParam("count") Integer count) {
+        var actorDTOResp = service.get(columnName, value, pageNumber, count);
 
         return Response.ok(actorDTOResp).build();
     }

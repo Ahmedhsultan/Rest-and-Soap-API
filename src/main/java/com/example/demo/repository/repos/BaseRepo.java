@@ -35,6 +35,25 @@ public class BaseRepo <Entity, ID>{
 
         return  entity;
     }
+    public <Type> List<Entity> find(String columnName, Type value, Integer pageNumber, Integer count){
+        List<Entity> entity = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<Entity> root = criteriaQuery.from(entityClass);
+
+            //Queries
+            criteriaQuery.where(criteriaBuilder.equal(root.get(columnName), value)).select(root);
+            List<Entity> result = entityManager.createQuery(criteriaQuery)
+                    .setFirstResult(pageNumber)
+                    .setMaxResults(count)
+                    .getResultList();
+
+            return result;
+        });
+
+        return  entity;
+    }
     public <Type> List<Entity> find(String columnName, Type value){
         List<Entity> entity = Manager.doTransaction((entityManager)->{
             //Definitions
