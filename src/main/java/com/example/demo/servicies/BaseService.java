@@ -31,9 +31,9 @@ public abstract class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity
 
     public abstract Entity post(DTOReq dtoReq) throws PersistenceException;
 
-    public List<DTOResp> get (String columnName, String value) throws FileNotFoundException{
+    public List<DTOResp> get (String columnName, String value, Integer pageNumber, Integer count) throws FileNotFoundException{
         try {
-            List<Entity> entity = repo.find(columnName, value);
+            List<Entity> entity = repo.find(columnName, value, pageNumber, count);
             List<DTOResp> dtoResp = entity.stream().map(x -> modelMapper.map(x, dtoClass))
                     .collect(Collectors.toList());
 
