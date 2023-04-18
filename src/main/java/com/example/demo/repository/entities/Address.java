@@ -114,6 +114,10 @@ public class Address {
     public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
+    @PrePersist
+    public void prePersist() {
+        this.lastUpdate = Instant.now();
+    }
 
     @Column(name = "location", columnDefinition = "GEOMETRY(65535) not null")
     private byte[] location;

@@ -127,5 +127,6 @@ public class Customer {
     @PrePersist
     public void prePersist() {
         this.createDate = Instant.now();
+        this.lastUpdate = Instant.now();
     }
 }

@@ -101,5 +101,6 @@ public class Payment {
     @PrePersist
     public void prePersist() {
         this.paymentDate = Instant.now();
+        this.lastUpdate = Instant.now();
     }
 }

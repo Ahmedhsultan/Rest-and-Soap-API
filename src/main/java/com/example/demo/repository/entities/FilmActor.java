@@ -60,4 +60,8 @@ public class FilmActor {
     public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
+    @PrePersist
+    public void prePersist() {
+        this.lastUpdate = Instant.now();
+    }
 }

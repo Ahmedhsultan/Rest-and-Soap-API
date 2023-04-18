@@ -101,5 +101,6 @@ public class Rental {
     @PrePersist
     public void prePersist() {
         this.rentalDate = Instant.now();
+        this.lastUpdate = Instant.now();
     }
 }
