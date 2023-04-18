@@ -43,9 +43,12 @@ public class Address {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
+    @Column(name = "location", columnDefinition = "GEOMETRY(65535) not null")
+    private byte[] location;
     @NotNull
     @Column(name = "last_update", nullable = false)
     private Instant lastUpdate;
+
 
     public Integer getId() {
         return id;
@@ -106,20 +109,25 @@ public class Address {
     public Instant getLastUpdate() {
         return lastUpdate;
     }
-
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+    public byte[] getLocation() {
+        return location;
+    }
+
+    public void setLocation(byte[] location) {
+        this.location = location;
+    }
+
     @PreUpdate
     public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
+
     @PrePersist
     public void prePersist() {
         this.lastUpdate = Instant.now();
     }
-
-    @Column(name = "location", columnDefinition = "GEOMETRY(65535) not null")
-    private byte[] location;
 
 }

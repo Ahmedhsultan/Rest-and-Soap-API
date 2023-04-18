@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class InventoryDTOReq {
-    private String filmTitle;
+    private Integer filmId;
     private Integer storeId;
 }

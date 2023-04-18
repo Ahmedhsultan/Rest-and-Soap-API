@@ -43,7 +43,7 @@ public class Staff {
 
     @NotNull
     @Column(name = "active", nullable = false)
-    private Boolean active = false;
+    private Boolean active;
 
     @Size(max = 16)
     @NotNull

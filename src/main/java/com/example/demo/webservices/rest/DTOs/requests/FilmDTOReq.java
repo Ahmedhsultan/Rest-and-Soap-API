@@ -8,8 +8,8 @@ public class FilmDTOReq {
     private String title;
     private String description;
     private Integer releaseYear;
-    private String language;//Language
-    private String originalLanguage;//Language
+    private Integer languageId;//Language
+    private Integer originalLanguageId;//Language
     private Short rentalDuration;
     private BigDecimal rentalRate;
     private Integer length;

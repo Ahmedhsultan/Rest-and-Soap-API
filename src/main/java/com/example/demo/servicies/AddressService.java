@@ -21,12 +21,12 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
     @Override
     public Address post(AddressDTOReq addressDTOReq) throws PersistenceException{
         //Fetch city from db
-        City city = UnitOfWork.getInstance().getCityRepo().find("city", addressDTOReq.getCity()).get(0);
+        City city = UnitOfWork.getInstance().getCityRepo().find(addressDTOReq.getCityId());
 
         //create address
         Address address = modelMapper.map(addressDTOReq, Address.class);
-        address.setLastUpdate(Instant.now());
         address.setCity(city);
+        address.setId(null);
 
         //Save this address
         try {

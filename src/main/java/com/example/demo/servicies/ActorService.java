@@ -11,25 +11,4 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class ActorService extends BaseService<Actor, ActorDTOResp, ActorRepo, ActorDTOReq>{
-    private ModelMapper modelMapper;
-
-    public ActorService(){
-        this.modelMapper = new ModelMapper();
-    }
-
-    @Override
-    public Actor post(ActorDTOReq actorDTOReq) throws PersistenceException{
-        //Create object of actor
-        Actor actor = modelMapper.map(actorDTOReq, Actor.class);
-        actor.setLastUpdate(Instant.now());
-
-        //Save this actor
-        try {
-            UnitOfWork.getInstance().getActorRepo().save(actor);
-        }catch (PersistenceException persistenceException){
-            throw new OperationFaildException("Can't save this actor!!");
-        }
-
-        return actor;
-    }
 }

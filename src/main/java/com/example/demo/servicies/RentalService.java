@@ -20,16 +20,15 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
     @Override
     public Rental post(RentalDTOReq rentalDTOReq) throws PersistenceException {
         //Fetch film and store from db
-        Staff staff = UnitOfWork.getInstance().getStaffRepo().find("firstName", rentalDTOReq.getStaffFirstName()).get(0);
+        Staff staff = UnitOfWork.getInstance().getStaffRepo().find(rentalDTOReq.getStaffId());
         Inventory inventory = UnitOfWork.getInstance().getInventoryRepo().find(rentalDTOReq.getInventoryId());
-        Customer customer = UnitOfWork.getInstance().getCustomerRepo().find("firstName", rentalDTOReq.getCustomerFirstName()).get(0);
+        Customer customer = UnitOfWork.getInstance().getCustomerRepo().find(rentalDTOReq.getCustomerId());
 
         //Create rental
         Rental rental = new Rental();
         rental.setInventory(inventory);
         rental.setRentalDate(Instant.now());
         rental.setCustomer(customer);
-        rental.setLastUpdate(Instant.now());
         rental.setStaff(staff);
         rental.setReturnDate(Instant.parse(rentalDTOReq.getReturnDateInstance()));
 

@@ -11,24 +11,4 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class CountryService extends BaseService<Country, CountryDTOResp, CountryRepo, CountryDTOReq>{
-    private ModelMapper modelMapper;
-    public CountryService(){
-        this.modelMapper = new ModelMapper();
-    }
-
-    @Override
-    public Country post(CountryDTOReq countryDTOReq) throws PersistenceException {
-
-        Country country = modelMapper.map(countryDTOReq, Country.class);
-        country.setLastUpdate(Instant.now());
-
-        //Save this actor
-        try {
-            UnitOfWork.getInstance().getCountryRepo().save(country);
-        }catch (PersistenceException persistenceException){
-            throw new OperationFaildException("Can't save this country!!");
-        }
-
-        return country;
-    }
 }

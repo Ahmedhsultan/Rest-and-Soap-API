@@ -22,8 +22,8 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
     @Override
     public FilmCategory post(FilmCategoryDTOReq filmCategoryDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = UnitOfWork.getInstance().getFilmRepo().find("title", filmCategoryDTOReq.getFilmTitle()).get(0);
-        Category category = UnitOfWork.getInstance().getCategoryRepo().find("name", filmCategoryDTOReq.getCategoryName()).get(0);
+        Film film = UnitOfWork.getInstance().getFilmRepo().find(filmCategoryDTOReq.getFilmId());
+        Category category = UnitOfWork.getInstance().getCategoryRepo().find(filmCategoryDTOReq.getCategoryId());
 
         //Create filmCategory
         FilmCategoryId filmCategoryId = new FilmCategoryId();
@@ -34,7 +34,6 @@ public class FilmCategoryService extends BaseService<FilmCategory, FilmCategoryD
         filmCategory.setId(filmCategoryId);
         filmCategory.setCategory(category);
         filmCategory.setFilm(film);
-        filmCategory.setLastUpdate(Instant.now());
 
         //Save this filmCategory
         try {

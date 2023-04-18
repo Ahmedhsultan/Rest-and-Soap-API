@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class FilmActorDTOReq {
-    private String firstName;
-    private String title;
+    private Integer actorId;
+    private Integer filmId;
 }

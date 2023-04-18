@@ -20,12 +20,11 @@ public class CityService extends BaseService<City, CityDTOResp, CityRepo, CityDT
     @Override
     public City post(CityDTOReq cityDTOReq) throws PersistenceException {
 
-        Country country = UnitOfWork.getInstance().getCountryRepo().find("country", cityDTOReq.getCountry()).get(0);
+        Country country = UnitOfWork.getInstance().getCountryRepo().find(cityDTOReq.getCountryId());
 
         City city = new City();
         city.setCountry(country);
         city.setCity(cityDTOReq.getCity());
-        city.setLastUpdate(Instant.now());
 
         //Save this city
         try {

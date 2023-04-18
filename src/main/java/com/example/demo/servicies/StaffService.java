@@ -24,14 +24,13 @@ public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo, St
     @Override
     public Staff post(StaffDTOReq staffDTOReq) throws PersistenceException {
         //Fetch Address and store from db
-        Address address = UnitOfWork.getInstance().getAddressRepo().find("address", staffDTOReq.getAddress()).get(0);
-        Store store = UnitOfWork.getInstance().getStoreRepo().find(staffDTOReq.getStoreId());
+        Address address = UnitOfWork.getInstance().getAddressRepo().find(staffDTOReq.getAddress());
+        Store store = UnitOfWork.getInstance().getStoreRepo().find(staffDTOReq.getStore());
 
         //Create object of staff
         Staff staff = modelMapper.map(staffDTOReq, Staff.class);
         staff.setStore(store);
         staff.setAddress(address);
-        staff.setLastUpdate(Instant.now());
 
         //Save this staff
         try {

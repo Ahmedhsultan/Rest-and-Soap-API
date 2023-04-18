@@ -10,5 +10,6 @@ public class AddressDTOReq {
     private String district;
     private String postalCode;
     private String phone;
-    private String city;
+    private Integer cityId;
+    private byte[] location;
 }

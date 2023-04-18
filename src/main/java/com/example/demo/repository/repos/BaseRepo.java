@@ -120,12 +120,12 @@ public class BaseRepo <Entity, ID>{
         });
         return  status;
     }
-    public boolean update(Entity entity){
-        Boolean status = Manager.doTransaction((entityManager)->{
-            entityManager.merge(entity);
-            return true;
+    public Entity update(Entity entity){
+        Entity result = Manager.doTransaction((entityManager)->{
+            Entity entityMerged = entityManager.merge(entity);
+            return entityMerged;
         });
-        return  status;
+        return  result;
     }
     public Long count(){
         Long count = Manager.doTransaction((entityManager)->{

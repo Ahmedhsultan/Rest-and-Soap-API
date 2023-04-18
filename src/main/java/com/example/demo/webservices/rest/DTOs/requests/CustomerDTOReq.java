@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class CustomerDTOReq {
-    private Integer store_ID;
+    private Integer storeId;
     private String firstName;
     private String lastName;
     private String email;
-    private String address;
+    private Integer addressId;
 }
