@@ -3,6 +3,7 @@ package com.example.demo.repository.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.glassfish.jaxb.core.v2.TODO;
 
 import java.time.Instant;
 
@@ -110,14 +111,11 @@ public class Address {
         this.lastUpdate = lastUpdate;
     }
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
 
-/*
-    TODO [JPA Buddy] create field to map the 'location' column
-     Available actions: Define target Java type | Uncomment as is | Remove column mapping
     @Column(name = "location", columnDefinition = "GEOMETRY(65535) not null")
-    private Object location;
-*/
+    private byte[] location;
+
 }

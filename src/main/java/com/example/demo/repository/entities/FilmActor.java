@@ -57,7 +57,7 @@ public class FilmActor {
         this.lastUpdate = lastUpdate;
     }
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
 }

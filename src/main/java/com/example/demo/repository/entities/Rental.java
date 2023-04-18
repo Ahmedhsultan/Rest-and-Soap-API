@@ -95,7 +95,11 @@ public class Rental {
         this.lastUpdate = lastUpdate;
     }
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
         this.lastUpdate = Instant.now();
+    }
+    @PrePersist
+    public void prePersist() {
+        this.rentalDate = Instant.now();
     }
 }

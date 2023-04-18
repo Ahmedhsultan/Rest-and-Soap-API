@@ -59,7 +59,7 @@ public class Store {
         this.lastUpdate = lastUpdate;
     }
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
 }
