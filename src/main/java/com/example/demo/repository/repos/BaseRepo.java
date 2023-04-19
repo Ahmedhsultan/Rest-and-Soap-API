@@ -1,6 +1,8 @@
 package com.example.demo.repository.repos;
 
 import com.example.demo.repository.manager.Manager;
+import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -19,7 +21,7 @@ public class BaseRepo <Entity, ID>{
         this.entityClass = (Class<Entity>) typeArguments[0];
     }
 
-    public Entity find(ID id){
+    public Entity find(ID id) throws OperationFaildException{
         Entity entity = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -28,7 +30,12 @@ public class BaseRepo <Entity, ID>{
 
             //Queries
             criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id)).select(root);
-            Entity result = entityManager.createQuery(criteriaQuery).getSingleResult();
+            Entity result = null;
+            try {
+                result = entityManager.createQuery(criteriaQuery).getSingleResult();
+            }catch (PersistenceException exception){
+                throw new OperationFaildException(entityClass.getSimpleName() + " Id isn't exist!!");
+            }
 
             return result;
         });
