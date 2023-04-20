@@ -1,11 +1,18 @@
 package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Film;
+import com.example.demo.servicies.FilmActorService;
 import com.example.demo.servicies.FilmService;
 import com.example.demo.webservices.rest.DTOs.requests.FilmDTOReq;
+import com.example.demo.webservices.rest.DTOs.resources.FilmActorDTOResp;
 import com.example.demo.webservices.rest.DTOs.resources.FilmDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
 import jakarta.jws.WebService;
+import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Response;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @WebService
@@ -19,10 +26,17 @@ public class FilmActorWS {
 
         return film;
     }
-    public List<FilmDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var filmDTOResps = FilmService.get(columnName, value, pageNumber, count);
+    public List<FilmActorDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
+        FilmActorService filmActorService = new FilmActorService();
 
-        return filmDTOResps;
+        List<FilmActorDTOResp> actorDTOResp = new ArrayList<>();
+        if (columnName.toLowerCase().equals("filmid"))
+            actorDTOResp = filmActorService.getByFilm(Integer.parseInt(value));
+        else if (columnName.toLowerCase().equals("actorid")) {
+            actorDTOResp = filmActorService.getByActor(Integer.parseInt(value));
+        }
+
+        return actorDTOResp;
     }
     public List<FilmDTOResp> getAll() {
         var filmDTOResps = FilmService.getAll();

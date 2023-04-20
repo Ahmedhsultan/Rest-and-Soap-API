@@ -6,6 +6,11 @@ import com.example.demo.webservices.rest.DTOs.requests.FilmCategoryDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmCategoryDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
 import jakarta.jws.WebService;
+import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Response;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @WebService
@@ -20,7 +25,14 @@ public class FilmCategoryWS {
         return filmCategory;
     }
     public List<FilmCategoryDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var filmCategoryDTOResps = filmCategoryService.get(columnName, value, pageNumber, count);
+        FilmCategoryService filmCategoryService = new FilmCategoryService();
+
+        List<FilmCategoryDTOResp> filmCategoryDTOResps = new ArrayList<>();
+        if (columnName.toLowerCase().equals("filmid"))
+            filmCategoryDTOResps = filmCategoryService.getByFilm(Integer.parseInt(value));
+        else if (columnName.toLowerCase().equals("categoryid")) {
+            filmCategoryDTOResps = filmCategoryService.getByCategory(Integer.parseInt(value));
+        }
 
         return filmCategoryDTOResps;
     }
