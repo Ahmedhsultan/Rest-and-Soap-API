@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Actor;
 import com.example.demo.servicies.ActorService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.ActorDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.ActorDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -22,7 +23,8 @@ public class ActorWS {
         return actor;
     }
     public List<ActorDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var actorDTOResp = actorService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var actorDTOResp = actorService.get(queryPage);
 
         return actorDTOResp;
     }

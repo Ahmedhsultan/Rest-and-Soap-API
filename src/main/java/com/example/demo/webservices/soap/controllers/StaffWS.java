@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Staff;
 import com.example.demo.servicies.StaffService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.StaffDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.StaffDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -20,7 +21,8 @@ public class StaffWS {
         return staff;
     }
     public List<StaffDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var staffDTOResps = staffService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var staffDTOResps = staffService.get(queryPage);
 
         return staffDTOResps;
     }

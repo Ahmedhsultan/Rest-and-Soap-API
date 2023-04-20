@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Inventory;
 import com.example.demo.servicies.InventoryService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.InventoryDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.InventoryDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -20,7 +21,8 @@ public class InventoryWS {
         return inventory;
     }
     public List<InventoryDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var inventoryDTOResps = inventoryService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var inventoryDTOResps = inventoryService.get(queryPage);
 
         return inventoryDTOResps;
     }

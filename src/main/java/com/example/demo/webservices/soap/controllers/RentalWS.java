@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Rental;
 import com.example.demo.servicies.RentalService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.RentalDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.RentalDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -20,7 +21,8 @@ public class RentalWS {
         return rental;
     }
     public List<RentalDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var rentalDTOResps = rentalService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var rentalDTOResps = rentalService.get(queryPage);
 
         return rentalDTOResps;
     }

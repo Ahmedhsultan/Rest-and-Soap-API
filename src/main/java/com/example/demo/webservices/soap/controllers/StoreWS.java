@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Store;
 import com.example.demo.servicies.StoreService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.StoreDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.StoreDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -20,7 +21,8 @@ public class StoreWS {
         return store;
     }
     public List<StoreDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var storeDTOResps = storeService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var storeDTOResps = storeService.get(queryPage);
 
         return storeDTOResps;
     }

@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Address;
 import com.example.demo.servicies.AddressService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.AddressDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.AddressDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -20,7 +21,8 @@ public class AddressWS {
         return address;
     }
     public List<AddressDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var addressDTOResp = AddressService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var addressDTOResp = AddressService.get(queryPage);
 
         return addressDTOResp;
     }
