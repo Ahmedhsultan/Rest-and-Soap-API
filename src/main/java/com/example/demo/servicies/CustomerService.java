@@ -21,15 +21,17 @@ public class CustomerService extends BaseService<Customer, CustomerDTOResp, Cust
     @Override
     public Customer post(CustomerDTOReq customerDTOReq) throws PersistenceException {
         //Fetch store and address from database
-        Store store = UnitOfWork.getInstance().getStoreRepo().find(customerDTOReq.getStore_ID());
-        Address address = UnitOfWork.getInstance().getAddressRepo().find("address", customerDTOReq.getAddress()).get(0);
+        Store store = UnitOfWork.getInstance().getStoreRepo().find(customerDTOReq.getStoreId());
+        Address address = UnitOfWork.getInstance().getAddressRepo().find(customerDTOReq.getAddressId());
 
         //Create new customer
-        Customer customer = modelMapper.map(customerDTOReq, Customer.class);
+        Customer customer = new Customer();
+        customer.setFirstName(customerDTOReq.getFirstName());
+        customer.setLastName(customerDTOReq.getLastName());
+        customer.setEmail(customerDTOReq.getEmail());
         customer.setActive(true);
         customer.setStore(store);
         customer.setAddress(address);
-        customer.setLastUpdate(Instant.now());
 
         //Save this customer
         try {

@@ -166,7 +166,11 @@ public class Film {
         this.lastUpdate = lastUpdate;
     }
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
+        this.lastUpdate = Instant.now();
+    }
+    @PrePersist
+    public void prePersist() {
         this.lastUpdate = Instant.now();
     }
 }

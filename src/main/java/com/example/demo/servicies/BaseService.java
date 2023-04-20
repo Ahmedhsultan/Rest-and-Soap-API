@@ -1,5 +1,7 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.UnitOfWork;
+import com.example.demo.repository.entities.Actor;
 import com.example.demo.repository.repos.BaseRepo;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -7,10 +9,11 @@ import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOReq>{
+public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOReq>{
     private Repo repo;
     private Class<DTOResp> dtoClass;
     private Class<Entity> entityClass;
@@ -29,7 +32,19 @@ public abstract class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity
         }catch (Exception e){e.printStackTrace();}
     }
 
-    public abstract Entity post(DTOReq dtoReq) throws PersistenceException;
+    public Entity post(DTOReq dtoReq) throws PersistenceException{
+        //Create object of entity
+        Entity entity = modelMapper.map(dtoReq, entityClass);
+
+        //Save this entity
+        try {
+            repo.save(entity);
+        }catch (PersistenceException persistenceException){
+            throw new OperationFaildException("Can't save this " + entity.getClass().getSimpleName() + " !!");
+        }
+
+        return entity;
+    }
 
     public List<DTOResp> get (String columnName, String value, Integer pageNumber, Integer count) throws FileNotFoundException{
         try {
@@ -82,8 +97,8 @@ public abstract class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity
     public Boolean put (DTOResp dtoResp) throws OperationFaildException{
         try {
             Entity entity = modelMapper.map(dtoResp, entityClass);
-            Boolean status = repo.update(entity);
-            return status;
+            repo.update(entity);
+            return true;
         }catch (PersistenceException persistenceException){
             throw new OperationFaildException("Can't edit this entity!!");
         }

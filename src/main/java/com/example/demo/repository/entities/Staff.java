@@ -43,7 +43,7 @@ public class Staff {
 
     @NotNull
     @Column(name = "active", nullable = false)
-    private Boolean active = false;
+    private Boolean active;
 
     @Size(max = 16)
     @NotNull
@@ -146,7 +146,11 @@ public class Staff {
         this.lastUpdate = lastUpdate;
     }
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
+        this.lastUpdate = Instant.now();
+    }
+    @PrePersist
+    public void prePersist() {
         this.lastUpdate = Instant.now();
     }
 }

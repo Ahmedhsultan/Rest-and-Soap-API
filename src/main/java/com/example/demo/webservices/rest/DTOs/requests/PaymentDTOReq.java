@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 
 @Data
 public class PaymentDTOReq {
-    private String customerFirstName;
-    private String staffFirstName;
+    private Integer customerId;
+    private Integer staffId;
     private Integer rentalId;
     private BigDecimal amount;
 }

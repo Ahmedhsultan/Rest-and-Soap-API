@@ -1,6 +1,8 @@
 package com.example.demo.repository.repos;
 
 import com.example.demo.repository.manager.Manager;
+import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -19,7 +21,7 @@ public class BaseRepo <Entity, ID>{
         this.entityClass = (Class<Entity>) typeArguments[0];
     }
 
-    public Entity find(ID id){
+    public Entity find(ID id) throws OperationFaildException{
         Entity entity = Manager.doTransaction((entityManager)->{
             //Definitions
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -28,7 +30,31 @@ public class BaseRepo <Entity, ID>{
 
             //Queries
             criteriaQuery.where(criteriaBuilder.equal(root.get("id"), id)).select(root);
-            Entity result = entityManager.createQuery(criteriaQuery).getSingleResult();
+            Entity result = null;
+            try {
+                result = entityManager.createQuery(criteriaQuery).getSingleResult();
+            }catch (PersistenceException exception){
+                throw new OperationFaildException(entityClass.getSimpleName() + " Id isn't exist!!");
+            }
+
+            return result;
+        });
+
+        return  entity;
+    }
+    public <Type> List<Entity> find(String columnName, Type value, Integer pageNumber, Integer count){
+        List<Entity> entity = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<Entity> root = criteriaQuery.from(entityClass);
+
+            //Queries
+            criteriaQuery.where(criteriaBuilder.equal(root.get(columnName), value)).select(root);
+            List<Entity> result = entityManager.createQuery(criteriaQuery)
+                    .setFirstResult(pageNumber)
+                    .setMaxResults(count)
+                    .getResultList();
 
             return result;
         });
@@ -120,12 +146,12 @@ public class BaseRepo <Entity, ID>{
         });
         return  status;
     }
-    public boolean update(Entity entity){
-        Boolean status = Manager.doTransaction((entityManager)->{
-            entityManager.merge(entity);
-            return true;
+    public Entity update(Entity entity){
+        Entity result = Manager.doTransaction((entityManager)->{
+            Entity entityMerged = entityManager.merge(entity);
+            return entityMerged;
         });
-        return  status;
+        return  result;
     }
     public Long count(){
         Long count = Manager.doTransaction((entityManager)->{

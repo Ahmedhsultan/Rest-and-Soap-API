@@ -11,24 +11,4 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class CategoryService extends BaseService<Category, CategoryDTOResp, CategoryRepo, CategoryDTOReq>{
-    private ModelMapper modelMapper;
-    public CategoryService(){
-        this.modelMapper = new ModelMapper();
-    }
-
-    @Override
-    public Category post(CategoryDTOReq categoryDTOReq) throws PersistenceException {
-
-        Category category = modelMapper.map(categoryDTOReq, Category.class);
-        category.setLastUpdate(Instant.now());
-
-        //Save this city
-        try {
-            UnitOfWork.getInstance().getCategoryRepo().save(category);
-        }catch (PersistenceException persistenceException){
-            throw new OperationFaildException("Can't save this city!!");
-        }
-
-        return category;
-    }
 }

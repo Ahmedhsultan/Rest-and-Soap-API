@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class StoreDTOReq {
-    private String managerStaffFirstName;
-    private String address;
+    private Integer managerStaffId;
+    private Integer addressId;
 }

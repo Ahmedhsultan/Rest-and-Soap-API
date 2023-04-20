@@ -23,14 +23,13 @@ public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo, St
     @Override
     public Store post(StoreDTOReq storeDTOReq) throws PersistenceException {
         //Fetch Address and staffManger from db
-        Staff staffManger = UnitOfWork.getInstance().getStaffRepo().find("firstName", storeDTOReq.getManagerStaffFirstName()).get(0);
-        Address address = UnitOfWork.getInstance().getAddressRepo().find("address", storeDTOReq.getAddress()).get(0);
+        Staff staffManger = UnitOfWork.getInstance().getStaffRepo().find(storeDTOReq.getManagerStaffId());
+        Address address = UnitOfWork.getInstance().getAddressRepo().find(storeDTOReq.getAddressId());
 
         //Create object of store
         Store store = new Store();
         store.setAddress(address);
         store.setManagerStaff(staffManger);
-        store.setLastUpdate(Instant.now());
 
         //Save this store
         try {

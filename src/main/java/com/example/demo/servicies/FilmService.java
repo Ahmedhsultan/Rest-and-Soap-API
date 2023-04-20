@@ -20,13 +20,13 @@ public class FilmService extends BaseService<Film, FilmDTOResp, FilmRepo, FilmDT
     @Override
     public Film post(FilmDTOReq filmDTOReq) throws PersistenceException {
         //Fetch language from db
-        Language language = UnitOfWork.getInstance().getLanguageRepo().find("name", filmDTOReq.getLanguage()).get(0);
-        Language OriginalLanguage = UnitOfWork.getInstance().getLanguageRepo().find("name", filmDTOReq.getOriginalLanguage()).get(0);
+        Language language = UnitOfWork.getInstance().getLanguageRepo().find(filmDTOReq.getLanguageId());
+        Language OriginalLanguage = UnitOfWork.getInstance().getLanguageRepo().find(filmDTOReq.getOriginalLanguageId());
 
         Film film = modelMapper.map(filmDTOReq, Film.class);
         film.setLanguage(language);
         film.setOriginalLanguage(OriginalLanguage);
-        film.setLastUpdate(Instant.now());
+        film.setId(null);
 
         //Save this film
         try {

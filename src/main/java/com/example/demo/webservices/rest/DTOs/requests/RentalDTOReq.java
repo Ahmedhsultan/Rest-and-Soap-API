@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class RentalDTOReq {
     private Integer inventoryId;
-    private String customerFirstName;
+    private Integer customerId;
     private String returnDateInstance;
-    private String staffFirstName;
+    private Integer staffId;
 }

@@ -3,6 +3,7 @@ package com.example.demo.repository.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.glassfish.jaxb.core.v2.TODO;
 
 import java.time.Instant;
 
@@ -42,9 +43,12 @@ public class Address {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
+    @Column(name = "location", columnDefinition = "GEOMETRY(65535) not null")
+    private byte[] location;
     @NotNull
     @Column(name = "last_update", nullable = false)
     private Instant lastUpdate;
+
 
     public Integer getId() {
         return id;
@@ -105,19 +109,25 @@ public class Address {
     public Instant getLastUpdate() {
         return lastUpdate;
     }
-
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+    public byte[] getLocation() {
+        return location;
+    }
+
+    public void setLocation(byte[] location) {
+        this.location = location;
+    }
+
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
 
-/*
-    TODO [JPA Buddy] create field to map the 'location' column
-     Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "location", columnDefinition = "GEOMETRY(65535) not null")
-    private Object location;
-*/
+    @PrePersist
+    public void prePersist() {
+        this.lastUpdate = Instant.now();
+    }
+
 }

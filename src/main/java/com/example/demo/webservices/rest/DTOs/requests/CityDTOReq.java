@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class CityDTOReq {
     private String city;
-    private String country;
+    private Integer countryId;
 }

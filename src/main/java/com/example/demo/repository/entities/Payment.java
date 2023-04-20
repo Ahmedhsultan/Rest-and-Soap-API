@@ -95,7 +95,12 @@ public class Payment {
         this.lastUpdate = lastUpdate;
     }
     @PreUpdate
-    public void updateLastUpdate() {
+    public void preUpdate() {
+        this.lastUpdate = Instant.now();
+    }
+    @PrePersist
+    public void prePersist() {
+        this.paymentDate = Instant.now();
         this.lastUpdate = Instant.now();
     }
 }

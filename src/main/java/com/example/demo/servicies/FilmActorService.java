@@ -22,8 +22,8 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
     @Override
     public FilmActor post(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
-        Film film = UnitOfWork.getInstance().getFilmRepo().find("title", filmActorDTOReq.getTitle()).get(0);
-        Actor actor = UnitOfWork.getInstance().getActorRepo().find("firstName", filmActorDTOReq.getFirstName()).get(0);
+        Film film = UnitOfWork.getInstance().getFilmRepo().find(filmActorDTOReq.getFilmId());
+        Actor actor = UnitOfWork.getInstance().getActorRepo().find(filmActorDTOReq.getActorId());
 
         FilmActorId filmActorId = new FilmActorId();
         filmActorId.setActorId(actor.getId());
@@ -33,7 +33,6 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
         filmActor.setId(filmActorId);
         filmActor.setActor(actor);
         filmActor.setFilm(film);
-        filmActor.setLastUpdate(Instant.now());
 
         //Save this filmActor
         try {

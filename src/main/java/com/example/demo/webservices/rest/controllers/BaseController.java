@@ -19,9 +19,9 @@ public class BaseController <DTOResp,Service extends BaseService, DTOReq>{
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(DTOReq dtoReq){
-        service.post(dtoReq);
+        var entity = service.post(dtoReq);
 
-        return Response.ok().build();
+        return Response.status(Response.Status.CREATED).entity(entity).build();
     }
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
