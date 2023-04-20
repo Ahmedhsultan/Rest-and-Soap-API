@@ -6,10 +6,6 @@ import com.example.demo.webservices.rest.DTOs.requests.FilmCategoryDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmCategoryDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
 import jakarta.jws.WebService;
-import jakarta.ws.rs.DefaultValue;
-import jakarta.ws.rs.QueryParam;
-import jakarta.ws.rs.core.Response;
-
 import java.util.ArrayList;
 import java.util.List;
 
