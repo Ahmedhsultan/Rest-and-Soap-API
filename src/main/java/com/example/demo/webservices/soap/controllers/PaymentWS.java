@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Payment;
 import com.example.demo.servicies.PaymentService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.PaymentDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.PaymentDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -20,7 +21,8 @@ public class PaymentWS {
         return payment;
     }
     public List<PaymentDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var paymentDTOResps = paymentService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var paymentDTOResps = paymentService.get(queryPage);
 
         return paymentDTOResps;
     }

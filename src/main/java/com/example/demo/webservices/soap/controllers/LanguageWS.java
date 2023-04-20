@@ -3,6 +3,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Language;
 import com.example.demo.servicies.LanguageService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.LanguageDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.LanguageDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -21,7 +22,8 @@ public class LanguageWS {
         return language;
     }
     public List<LanguageDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var languageDTOResps = languageService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var languageDTOResps = languageService.get(queryPage);
 
         return languageDTOResps;
     }

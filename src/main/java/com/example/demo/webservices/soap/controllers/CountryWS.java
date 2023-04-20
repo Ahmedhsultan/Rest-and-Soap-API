@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.Country;
 import com.example.demo.servicies.CountryService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.CountryDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.CountryDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -18,7 +19,8 @@ public class CountryWS {
         return country;
     }
     public List<CountryDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var countryDTOResps = countryService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var countryDTOResps = countryService.get(queryPage);
 
         return countryDTOResps;
     }

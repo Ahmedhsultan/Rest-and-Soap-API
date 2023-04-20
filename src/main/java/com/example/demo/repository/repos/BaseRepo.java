@@ -1,6 +1,7 @@
 package com.example.demo.repository.repos;
 
 import com.example.demo.repository.manager.Manager;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -54,6 +55,25 @@ public class BaseRepo <Entity, ID>{
             List<Entity> result = entityManager.createQuery(criteriaQuery)
                     .setFirstResult(pageNumber)
                     .setMaxResults(count)
+                    .getResultList();
+
+            return result;
+        });
+
+        return  entity;
+    }
+    public List<Entity> find(QueryPage queryPage){
+        List<Entity> entity = Manager.doTransaction((entityManager)->{
+            //Definitions
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Entity> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            Root<Entity> root = criteriaQuery.from(entityClass);
+
+            //Queries
+            criteriaQuery.where(criteriaBuilder.equal(root.get(queryPage.columnName()), queryPage.value())).select(root);
+            List<Entity> result = entityManager.createQuery(criteriaQuery)
+                    .setFirstResult(queryPage.pageNumber())
+                    .setMaxResults(queryPage.count())
                     .getResultList();
 
             return result;

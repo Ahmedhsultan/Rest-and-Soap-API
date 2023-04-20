@@ -2,6 +2,7 @@ package com.example.demo.webservices.soap.controllers;
 
 import com.example.demo.repository.entities.FilmText;
 import com.example.demo.servicies.FilmTextService;
+import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.FilmTextDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmTextDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
@@ -20,7 +21,8 @@ public class FilmTextWS {
         return filmText;
     }
     public List<FilmTextDTOResp> get(String columnName, String value, Integer pageNumber, Integer count) {
-        var filmTextDTOResps = filmTextService.get(columnName, value, pageNumber, count);
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var filmTextDTOResps = filmTextService.get(queryPage);
 
         return filmTextDTOResps;
     }

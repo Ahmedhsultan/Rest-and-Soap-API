@@ -1,6 +1,7 @@
 package com.example.demo.webservices.rest.controllers;
 
 import com.example.demo.servicies.BaseService;
+import com.example.demo.util.records.QueryPage;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -29,7 +30,9 @@ public class BaseController <DTOResp,Service extends BaseService, DTOReq>{
                         @QueryParam("value") String value,
                         @DefaultValue(value = "0")@QueryParam("pageNumber") Integer pageNumber,
                         @DefaultValue(value = "10")@QueryParam("count") Integer count) {
-        var actorDTOResp = service.get(columnName, value, pageNumber, count);
+
+        QueryPage queryPage = new QueryPage(columnName, value, pageNumber, count);
+        var actorDTOResp = service.get(queryPage);
 
         return Response.ok(actorDTOResp).build();
     }
