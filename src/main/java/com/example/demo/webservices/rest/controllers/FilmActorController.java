@@ -24,9 +24,9 @@ public class FilmActorController extends BaseController<FilmActorDTOResp, FilmAc
         FilmActorService filmActorService = new FilmActorService();
 
         List<FilmActorDTOResp> actorDTOResp = new ArrayList<>();
-        if (columnName.toLowerCase().equals("filmid"))
+        if (columnName.equalsIgnoreCase("filmid"))
             actorDTOResp = filmActorService.getByFilm(Integer.parseInt(value));
-        else if (columnName.toLowerCase().equals("actorid")) {
+        else if (columnName.equalsIgnoreCase("actorid")) {
             actorDTOResp = filmActorService.getByActor(Integer.parseInt(value));
         }
 
