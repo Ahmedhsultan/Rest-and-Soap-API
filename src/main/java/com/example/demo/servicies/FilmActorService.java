@@ -9,9 +9,7 @@ import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundExcept
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
 import org.modelmapper.ModelMapper;
-import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, FilmActorRepo, FilmActorDTOReq>{
     private ModelMapper modelMapper;
@@ -48,7 +46,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
             Film film = UnitOfWork.getInstance().getFilmRepo().find(filmId);
             List<FilmActor> filmActors = UnitOfWork.getInstance().getFilmActorRepo().<Film>find("film",film);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
             return dtoResp;
         }catch (PersistenceException persistenceException){
@@ -60,7 +58,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
             Actor actor = UnitOfWork.getInstance().getActorRepo().find(actorId);
             List<FilmActor> filmActors = UnitOfWork.getInstance().getFilmActorRepo().<Actor>find("actor",actor);
             List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
             return dtoResp;
         }catch (PersistenceException persistenceException){
