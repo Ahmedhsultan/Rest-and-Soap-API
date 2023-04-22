@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 
 public enum Mapper {
     MAPPER;
-    volatile ModelMapper modelMapper = new ModelMapper();
+    final ModelMapper modelMapper = new ModelMapper();
     public ModelMapper getModelMapper() {
         return modelMapper;
     }
