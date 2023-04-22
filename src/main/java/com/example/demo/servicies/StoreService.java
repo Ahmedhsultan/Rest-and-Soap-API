@@ -13,13 +13,6 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo, StoreDTOReq>{
-    private ModelMapper modelMapper;
-
-    public StoreService(){
-        //Create objects from repositories
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public Store post(StoreDTOReq storeDTOReq) throws PersistenceException {
         //Fetch Address and staffManger from db

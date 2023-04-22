@@ -1,11 +1,11 @@
 package com.example.demo.servicies;
 
 import com.example.demo.repository.repos.BaseRepo;
+import com.example.demo.util.Mapper;
 import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -15,10 +15,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOR
     private Repo repo;
     private Class<DTOResp> dtoClass;
     private Class<Entity> entityClass;
-    private ModelMapper modelMapper;
     public BaseService(){
-        this.modelMapper = new ModelMapper();
-
         //Get class type of generics by reflections
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         Type[] typeArguments = genericSuperclass.getActualTypeArguments();
@@ -32,7 +29,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOR
 
     public Entity post(DTOReq dtoReq) throws PersistenceException{
         //Create object of entity
-        Entity entity = modelMapper.map(dtoReq, entityClass);
+        Entity entity = Mapper.MAPPER.getModelMapper().map(dtoReq, entityClass);
 
         //Save this entity
         try {
@@ -47,7 +44,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOR
     public List<DTOResp> get (QueryPage queryPage) throws FileNotFoundException{
         try {
             List<Entity> entity = repo.find(queryPage);
-            List<DTOResp> dtoResp = entity.stream().map(x -> modelMapper.map(x, dtoClass))
+            List<DTOResp> dtoResp = entity.stream().map(x -> Mapper.MAPPER.getModelMapper().map(x, dtoClass))
                     .collect(Collectors.toList());
 
             return dtoResp;
@@ -58,7 +55,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOR
     public List<DTOResp> getAll () throws FileNotFoundException{
         try {
             List<Entity> entity = repo.findAll();
-            List<DTOResp> dtoResp = entity.stream().map(x -> modelMapper.map(x, dtoClass))
+            List<DTOResp> dtoResp = entity.stream().map(x -> Mapper.MAPPER.getModelMapper().map(x, dtoClass))
                     .collect(Collectors.toList());
 
             return dtoResp;
@@ -85,7 +82,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOR
     }
     public Boolean delete (DTOResp dtoResp) throws OperationFaildException{
         try {
-            Entity entity = modelMapper.map(dtoResp, entityClass);
+            Entity entity = Mapper.MAPPER.getModelMapper().map(dtoResp, entityClass);
             Boolean status = repo.delete(entity);
             return status;
         }catch (PersistenceException persistenceException){
@@ -94,7 +91,7 @@ public class BaseService <Entity, DTOResp, Repo extends BaseRepo<Entity,?>, DTOR
     }
     public Boolean put (DTOResp dtoResp) throws OperationFaildException{
         try {
-            Entity entity = modelMapper.map(dtoResp, entityClass);
+            Entity entity = Mapper.MAPPER.getModelMapper().map(dtoResp, entityClass);
             repo.update(entity);
             return true;
         }catch (PersistenceException persistenceException){

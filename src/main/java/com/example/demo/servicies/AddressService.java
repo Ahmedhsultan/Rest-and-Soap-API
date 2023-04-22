@@ -1,22 +1,16 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.City;
 import com.example.demo.repository.repos.AddressRepo;
-import com.example.demo.repository.UnitOfWork;
+import com.example.demo.util.Mapper;
 import com.example.demo.webservices.rest.DTOs.requests.AddressDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.AddressDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
-
-import java.time.Instant;
 
 public class AddressService extends BaseService<Address, AddressDTOResp, AddressRepo, AddressDTOReq>{
-    private ModelMapper modelMapper;
-    public AddressService(){
-        this.modelMapper = new ModelMapper();
-    }
 
     @Override
     public Address post(AddressDTOReq addressDTOReq) throws PersistenceException{
@@ -24,7 +18,7 @@ public class AddressService extends BaseService<Address, AddressDTOResp, Address
         City city = UnitOfWork.getInstance().getCityRepo().find(addressDTOReq.getCityId());
 
         //create address
-        Address address = modelMapper.map(addressDTOReq, Address.class);
+        Address address = Mapper.MAPPER.getModelMapper().map(addressDTOReq, Address.class);
         address.setCity(city);
         address.setId(null);
 

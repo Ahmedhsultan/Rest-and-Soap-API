@@ -11,11 +11,6 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class PaymentService extends BaseService<Payment, PaymentDTOResp, PaymentRepo, PaymentDTOReq>{
-    private ModelMapper modelMapper;
-    public PaymentService(){
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public Payment post(PaymentDTOReq paymentDTOReq) throws PersistenceException {
         //Fetch film and store from db

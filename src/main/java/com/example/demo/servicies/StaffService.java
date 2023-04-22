@@ -5,6 +5,7 @@ import com.example.demo.repository.entities.Staff;
 import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.StaffRepo;
 import com.example.demo.repository.UnitOfWork;
+import com.example.demo.util.Mapper;
 import com.example.demo.webservices.rest.DTOs.requests.StaffDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.StaffDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
@@ -14,13 +15,6 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo, StaffDTOReq>{
-    private ModelMapper modelMapper;
-
-    public StaffService(){
-        //Create objects from repositories
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public Staff post(StaffDTOReq staffDTOReq) throws PersistenceException {
         //Fetch Address and store from db
@@ -28,7 +22,7 @@ public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo, St
         Store store = UnitOfWork.getInstance().getStoreRepo().find(staffDTOReq.getStore());
 
         //Create object of staff
-        Staff staff = modelMapper.map(staffDTOReq, Staff.class);
+        Staff staff = Mapper.MAPPER.getModelMapper().map(staffDTOReq, Staff.class);
         staff.setStore(store);
         staff.setAddress(address);
 

@@ -14,11 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo, RentalDTOReq>{
-    private ModelMapper modelMapper;
-    public RentalService(){
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public Rental post(RentalDTOReq rentalDTOReq) throws PersistenceException {
 

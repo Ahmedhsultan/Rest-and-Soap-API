@@ -1,23 +1,16 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.Customer;
 import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.CustomerRepo;
-import com.example.demo.repository.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.CustomerDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.CustomerDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
-import java.time.Instant;
 
 public class CustomerService extends BaseService<Customer, CustomerDTOResp, CustomerRepo, CustomerDTOReq>{
-    private ModelMapper modelMapper;
-    public CustomerService(){
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public Customer post(CustomerDTOReq customerDTOReq) throws PersistenceException {
         //Fetch store and address from database

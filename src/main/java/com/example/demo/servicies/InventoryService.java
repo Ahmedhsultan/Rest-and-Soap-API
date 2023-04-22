@@ -13,11 +13,6 @@ import org.modelmapper.ModelMapper;
 import java.time.Instant;
 
 public class InventoryService extends BaseService<Inventory, InventoryDTOResp, InventoryRepo, InventoryDTOReq>{
-    private ModelMapper modelMapper;
-    public InventoryService(){
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public Inventory post(InventoryDTOReq inventoryDTOReq) throws PersistenceException {
         //Fetch film and store from db

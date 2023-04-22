@@ -1,22 +1,15 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.repository.entities.City;
 import com.example.demo.repository.entities.Country;
 import com.example.demo.repository.repos.CityRepo;
-import com.example.demo.repository.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.CityDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.CityDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
-import java.time.Instant;
 
 public class CityService extends BaseService<City, CityDTOResp, CityRepo, CityDTOReq>{
-    private ModelMapper modelMapper;
-    public CityService(){
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public City post(CityDTOReq cityDTOReq) throws PersistenceException {
 

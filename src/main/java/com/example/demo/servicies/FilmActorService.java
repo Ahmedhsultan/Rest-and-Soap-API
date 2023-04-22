@@ -3,20 +3,15 @@ package com.example.demo.servicies;
 import com.example.demo.repository.entities.*;
 import com.example.demo.repository.repos.FilmActorRepo;
 import com.example.demo.repository.UnitOfWork;
+import com.example.demo.util.Mapper;
 import com.example.demo.webservices.rest.DTOs.requests.FilmActorDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.FilmActorDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.FileNotFoundException;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
 import java.util.List;
 
 public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, FilmActorRepo, FilmActorDTOReq>{
-    private ModelMapper modelMapper;
-    public FilmActorService(){
-        this.modelMapper = new ModelMapper();
-    }
-
     @Override
     public FilmActor post(FilmActorDTOReq filmActorDTOReq) throws PersistenceException {
         //Fetch language from db
@@ -45,7 +40,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
         try {
             Film film = UnitOfWork.getInstance().getFilmRepo().find(filmId);
             List<FilmActor> filmActors = UnitOfWork.getInstance().getFilmActorRepo().<Film>find("film",film);
-            List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
+            List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> Mapper.MAPPER.getModelMapper().map(x, FilmActorDTOResp.class))
                     .toList();
 
             return dtoResp;
@@ -57,7 +52,7 @@ public class FilmActorService extends BaseService<FilmActor, FilmActorDTOResp, F
         try {
             Actor actor = UnitOfWork.getInstance().getActorRepo().find(actorId);
             List<FilmActor> filmActors = UnitOfWork.getInstance().getFilmActorRepo().<Actor>find("actor",actor);
-            List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> modelMapper.map(x, FilmActorDTOResp.class))
+            List<FilmActorDTOResp> dtoResp = filmActors.stream().map(x -> Mapper.MAPPER.getModelMapper().map(x, FilmActorDTOResp.class))
                     .toList();
 
             return dtoResp;
