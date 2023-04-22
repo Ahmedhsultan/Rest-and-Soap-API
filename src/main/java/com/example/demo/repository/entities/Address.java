@@ -3,7 +3,6 @@ package com.example.demo.repository.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.glassfish.jaxb.core.v2.TODO;
 
 import java.time.Instant;
 
@@ -12,7 +11,7 @@ import java.time.Instant;
 public class Address {
     @Id
     @Column(name = "address_id", columnDefinition = "SMALLINT UNSIGNED not null")
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 50)
@@ -109,9 +108,11 @@ public class Address {
     public Instant getLastUpdate() {
         return lastUpdate;
     }
+
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
     public byte[] getLocation() {
         return location;
     }

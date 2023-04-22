@@ -1,19 +1,20 @@
 package com.example.demo.servicies;
 
 import com.example.demo.repository.UnitOfWork;
-import com.example.demo.repository.entities.*;
-import com.example.demo.repository.repos.*;
+import com.example.demo.repository.entities.Customer;
+import com.example.demo.repository.entities.Inventory;
+import com.example.demo.repository.entities.Rental;
+import com.example.demo.repository.entities.Staff;
+import com.example.demo.repository.repos.RentalRepo;
 import com.example.demo.webservices.rest.DTOs.requests.RentalDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.RentalDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo, RentalDTOReq>{
+public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo, RentalDTOReq> {
     @Override
     public Rental post(RentalDTOReq rentalDTOReq) throws PersistenceException {
 
@@ -23,9 +24,9 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
         Customer customer = UnitOfWork.getInstance().getCustomerRepo().find(rentalDTOReq.getCustomerId());
 
         //Check if inventory rented or customer inactive
-        if(!customer.getActive())
+        if (!customer.getActive())
             throw new OperationFaildException("Customer isn't active!!");
-        if(isRented(inventory))
+        if (isRented(inventory))
             throw new OperationFaildException("Inventory is rented!!");
 
         //Create rental
@@ -38,22 +39,22 @@ public class RentalService extends BaseService<Rental, RentalDTOResp, RentalRepo
         //Save this rental
         try {
             UnitOfWork.getInstance().getRentalRepo().save(rental);
-        }catch (PersistenceException persistenceException){
+        } catch (PersistenceException persistenceException) {
             throw new OperationFaildException("Can't save this rental!!");
         }
 
         return rental;
     }
 
-    public boolean isRented(Inventory inventory){
+    public boolean isRented(Inventory inventory) {
         try {
             //Get all rentals history for this inventory
             List<Rental> rentalsHistory = UnitOfWork.getInstance().getRentalRepo().find("inventory", inventory);
             //Check if one of them still rented and the rented date after now
             List<Rental> rentals = rentalsHistory.stream().filter(x -> x.getRentalDate().isAfter(Instant.now())).toList();
-            if (rentals.stream().count()>0)
+            if (rentals.stream().count() > 0)
                 return true;
-        }catch (IndexOutOfBoundsException exception){
+        } catch (IndexOutOfBoundsException exception) {
             return false;
         }
         return false;

@@ -1,20 +1,17 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.Staff;
 import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.StaffRepo;
-import com.example.demo.repository.UnitOfWork;
 import com.example.demo.util.Mapper;
 import com.example.demo.webservices.rest.DTOs.requests.StaffDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.StaffDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
 
-import java.time.Instant;
-
-public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo, StaffDTOReq>{
+public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo, StaffDTOReq> {
     @Override
     public Staff post(StaffDTOReq staffDTOReq) throws PersistenceException {
         //Fetch Address and store from db
@@ -29,7 +26,7 @@ public class StaffService extends BaseService<Staff, StaffDTOResp, StaffRepo, St
         //Save this staff
         try {
             UnitOfWork.getInstance().getStaffRepo().save(staff);
-        }catch (PersistenceException persistenceException){
+        } catch (PersistenceException persistenceException) {
             throw new OperationFaildException("Can't save this staff!!");
         }
 

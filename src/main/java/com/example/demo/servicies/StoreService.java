@@ -1,18 +1,16 @@
 package com.example.demo.servicies;
 
+import com.example.demo.repository.UnitOfWork;
 import com.example.demo.repository.entities.Address;
 import com.example.demo.repository.entities.Staff;
 import com.example.demo.repository.entities.Store;
 import com.example.demo.repository.repos.StoreRepo;
-import com.example.demo.repository.UnitOfWork;
 import com.example.demo.webservices.rest.DTOs.requests.StoreDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.StoreDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
-import java.time.Instant;
 
-public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo, StoreDTOReq>{
+public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo, StoreDTOReq> {
     @Override
     public Store post(StoreDTOReq storeDTOReq) throws PersistenceException {
         //Fetch Address and staffManger from db
@@ -27,7 +25,7 @@ public class StoreService extends BaseService<Store, StoreDTOResp, StoreRepo, St
         //Save this store
         try {
             UnitOfWork.getInstance().getStoreRepo().save(store);
-        }catch (PersistenceException persistenceException){
+        } catch (PersistenceException persistenceException) {
             throw new OperationFaildException("Can't save this store!!");
         }
 

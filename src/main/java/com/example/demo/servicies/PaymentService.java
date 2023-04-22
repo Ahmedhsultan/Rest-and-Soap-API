@@ -1,16 +1,19 @@
 package com.example.demo.servicies;
 
 import com.example.demo.repository.UnitOfWork;
-import com.example.demo.repository.entities.*;
-import com.example.demo.repository.repos.*;
+import com.example.demo.repository.entities.Customer;
+import com.example.demo.repository.entities.Payment;
+import com.example.demo.repository.entities.Rental;
+import com.example.demo.repository.entities.Staff;
+import com.example.demo.repository.repos.PaymentRepo;
 import com.example.demo.webservices.rest.DTOs.requests.PaymentDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.PaymentDTOResp;
 import com.example.demo.webservices.rest.exception.exceptions.OperationFaildException;
 import jakarta.persistence.PersistenceException;
-import org.modelmapper.ModelMapper;
+
 import java.time.Instant;
 
-public class PaymentService extends BaseService<Payment, PaymentDTOResp, PaymentRepo, PaymentDTOReq>{
+public class PaymentService extends BaseService<Payment, PaymentDTOResp, PaymentRepo, PaymentDTOReq> {
     @Override
     public Payment post(PaymentDTOReq paymentDTOReq) throws PersistenceException {
         //Fetch film and store from db
@@ -29,7 +32,7 @@ public class PaymentService extends BaseService<Payment, PaymentDTOResp, Payment
         //Save this payment
         try {
             UnitOfWork.getInstance().getPaymentRepo().save(payment);
-        }catch (PersistenceException persistenceException){
+        } catch (PersistenceException persistenceException) {
             throw new OperationFaildException("Can't save this payment!!");
         }
 

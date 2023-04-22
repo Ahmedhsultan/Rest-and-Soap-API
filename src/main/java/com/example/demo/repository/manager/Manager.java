@@ -1,16 +1,15 @@
 package com.example.demo.repository.manager;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceException;
 
 import java.util.function.Function;
 
 public class Manager {
-    private Manager(){}
+    private Manager() {
+    }
 
-    public static <R> R doTransaction (Function<EntityManager,R> function){
+    public static <R> R doTransaction(Function<EntityManager, R> function) {
         EntityManager entityManager = MyThreadLocal.MY_THREAD_LOCAL.getLocal();
         try {
             entityManager.getTransaction().begin();
@@ -18,7 +17,7 @@ public class Manager {
             entityManager.getTransaction().commit();
 
             return theReturn;
-        }catch (PersistenceException exception){
+        } catch (PersistenceException exception) {
             entityManager.getTransaction().rollback();
             throw exception;
         }

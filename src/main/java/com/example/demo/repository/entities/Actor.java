@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import javax.annotation.processing.Generated;
 import java.time.Instant;
 
 @Entity
@@ -12,7 +11,7 @@ import java.time.Instant;
 public class Actor {
     @Id
     @Column(name = "actor_id", columnDefinition = "SMALLINT UNSIGNED not null")
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 45)
@@ -60,10 +59,12 @@ public class Actor {
     public void setLastUpdate(Instant lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
     @PreUpdate
     public void preUpdate() {
         this.lastUpdate = Instant.now();
     }
+
     @PrePersist
     public void prePersist() {
         this.lastUpdate = Instant.now();

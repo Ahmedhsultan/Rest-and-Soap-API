@@ -2,6 +2,7 @@ package com.example.demo.webservices.rest.DTOs.resources;
 
 import com.example.demo.repository.entities.Rental;
 import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
