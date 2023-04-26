@@ -6,9 +6,12 @@ import com.example.demo.util.records.QueryPage;
 import com.example.demo.webservices.rest.DTOs.requests.CountryDTOReq;
 import com.example.demo.webservices.rest.DTOs.resources.CountryDTOResp;
 import com.example.demo.webservices.soap.exception.SoapException;
+import jakarta.jws.WebService;
 
 import java.util.List;
 
+
+@WebService
 public class CountryWS {
     private CountryService countryService;
 

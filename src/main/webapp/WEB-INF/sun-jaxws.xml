@@ -3,8 +3,68 @@
 <endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
 
     <endpoint
-            name="sakilaWebService"
+            name="ActorWebService"
             implementation="com.example.demo.webservices.soap.controllers.ActorWS"
-            url-pattern="/sakila" />
+            url-pattern="/ws/ActorWS"/>
+    <endpoint
+            name="AddressWebService"
+            implementation="com.example.demo.webservices.soap.controllers.AddressWS"
+            url-pattern="/ws/AddressWS"/>
+    <endpoint
+            name="CategoryWebService"
+            implementation="com.example.demo.webservices.soap.controllers.CategoryWS"
+            url-pattern="/ws/CategoryWS"/>
+    <endpoint
+            name="CityWebService"
+            implementation="com.example.demo.webservices.soap.controllers.CityWS"
+            url-pattern="/ws/CityWS"/>
+    <endpoint
+            name="CountryWebService"
+            implementation="com.example.demo.webservices.soap.controllers.CountryWS"
+            url-pattern="/ws/CountryWS"/>
+    <endpoint
+            name="CustomerWebService"
+            implementation="com.example.demo.webservices.soap.controllers.CustomerWS"
+            url-pattern="/ws/CustomerWS"/>
+    <endpoint
+            name="FilmActorWebService"
+            implementation="com.example.demo.webservices.soap.controllers.FilmActorWS"
+            url-pattern="/ws/FilmActorWS"/>
+    <endpoint
+            name="FilmCategoryWebService"
+            implementation="com.example.demo.webservices.soap.controllers.FilmCategoryWS"
+            url-pattern="/ws/FilmCategoryWS"/>
+    <endpoint
+            name="FilmTextWebService"
+            implementation="com.example.demo.webservices.soap.controllers.FilmTextWS"
+            url-pattern="/ws/FilmTextWS"/>
+    <endpoint
+            name="FilmWebService"
+            implementation="com.example.demo.webservices.soap.controllers.FilmWS"
+            url-pattern="/ws/FilmWS"/>
+    <endpoint
+            name="InventoryWebService"
+            implementation="com.example.demo.webservices.soap.controllers.InventoryWS"
+            url-pattern="/ws/InventoryWS"/>
+    <endpoint
+            name="LanguageWebService"
+            implementation="com.example.demo.webservices.soap.controllers.LanguageWS"
+            url-pattern="/ws/LanguageWS"/>
+    <endpoint
+            name="PaymentWebService"
+            implementation="com.example.demo.webservices.soap.controllers.PaymentWS"
+            url-pattern="/ws/PaymentWS"/>
+    <endpoint
+            name="RentalWebService"
+            implementation="com.example.demo.webservices.soap.controllers.RentalWS"
+            url-pattern="/ws/RentalWS"/>
+    <endpoint
+            name="StaffWebService"
+            implementation="com.example.demo.webservices.soap.controllers.StaffWS"
+            url-pattern="/ws/StaffWS"/>
+    <endpoint
+            name="StoreWebService"
+            implementation="com.example.demo.webservices.soap.controllers.StoreWS"
+            url-pattern="/ws/StoreWS"/>
 
 </endpoints>
